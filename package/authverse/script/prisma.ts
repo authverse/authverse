@@ -1,0 +1,45 @@
+import { fileURLToPath } from "url";
+import path from "path";
+import fs from "fs";
+import chalk from "chalk";
+import { execSync } from "child_process";
+
+export const prismaRun = async () => {
+  try {
+    console.log(chalk.cyan("\n⚙️  Initializing Prisma...\n"));
+
+    // Install prisma + @prisma/client
+    execSync("npm install prisma --save-dev", { stdio: "inherit" });
+    execSync("npm install @prisma/client", { stdio: "inherit" });
+
+    const projectDir = process.cwd();
+    const prismaDir = path.join(projectDir, "prisma");
+
+    // prisma is not folder
+    if(!fs.existsSync(prismaDir)) {
+      // Initialize Prisma (creates prisma/schema.prisma)
+      console.log(chalk.yellow("\n⚙️  Initializing Prisma...\n"));
+      execSync("npx prisma init", { stdio: "inherit" });
+    }
+
+    // ✅ Fix for __dirname in ES module
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    // 1️⃣ Paths
+    const templatePath = path.resolve(__dirname, "../../template/schema.prisma");
+
+    // 2️⃣ Ensure prisma folder exists
+    if (!fs.existsSync(prismaDir)) {
+      fs.mkdirSync(prismaDir, { recursive: true });
+    }
+
+    // 3️⃣ Copy schema.prisma
+    const destinationPath = path.join(prismaDir, "schema.prisma");
+    fs.copyFileSync(templatePath, destinationPath);
+
+    console.log(chalk.green("✅ Prisma schema copied successfully!"));
+  } catch (err) {
+    console.error(chalk.red("❌ Prisma setup failed:"), err);
+  }
+};

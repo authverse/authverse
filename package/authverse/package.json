@@ -1,0 +1,22 @@
+{
+  "name": "authverse",
+  "version": "1.0.0",
+  "description": "CLI tool for creating authverse projects",
+  "type": "module",
+  "bin": {
+    "authverse": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup ./index.ts --format esm,cjs --dts --out-dir dist",
+    "dev": "tsup ./index.ts --watch --onSuccess \"node dist/index.js\""
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "inquirer": "^12.10.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  }
+}
