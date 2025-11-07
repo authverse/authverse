@@ -4,6 +4,7 @@ import fs from "fs";
 import chalk from "chalk";
 import { execSync } from "child_process";
 import inquirer from "inquirer";
+import { GenerateSecret } from "../function/GenerateSecret.js";
 
 export const prismaRun = async () => {
   try {
@@ -49,6 +50,53 @@ export const prismaRun = async () => {
     // 3 Copy schema.prisma
     const destinationPath = path.join(prismaDir, "schema.prisma");
     fs.copyFileSync(templatePath, destinationPath);
+
+    // install better auth
+    console.log(chalk.yellow("\n⚙️  Initializing better-auth...\n"));
+    execSync("npm install better-auth", { stdio: "inherit" });
+
+    // Generate better auth secret
+    const secret = await GenerateSecret();
+
+    // .env file add better auth secret
+    const envPath = path.join(projectDir, ".env");
+    fs.appendFileSync(envPath, `\n\nBETTER_AUTH_SECRET=${secret}`);
+    fs.appendFileSync(envPath, `\nBETTER_AUTH_URL=http://localhost:3000\n`);
+
+    console.log(chalk.yellow("\n create folder...\n"));
+
+    // Check Next.js folder structure src
+    const srcPath = path.join(projectDir, "src");
+    const folder = srcPath ? "" : "src";
+
+    // check exists lib
+    const libPath = path.join(projectDir, folder, "lib");
+    if (!fs.existsSync(libPath)) {
+      // create lib folder
+      fs.mkdirSync(libPath, { recursive: true });
+    }
+
+    // Copy auth.ts
+    const authTemplatePath = path.resolve(
+      __dirname,
+      "../../template/lib/auth-prisma.ts"
+    );
+    const authDestinationPath = path.join(libPath, "auth.ts");
+    fs.copyFileSync(authTemplatePath, authDestinationPath);
+
+    // create server folder
+    const serverPath = path.join(projectDir, folder, "server");
+    if (!fs.existsSync(serverPath)) {
+      fs.mkdirSync(serverPath, { recursive: true });
+    }
+
+    // Copy user.ts
+    const userTemplatePath = path.resolve(
+      __dirname,
+      "../../template/server/user.ts"
+    );
+    const userDestinationPath = path.join(serverPath, "user.ts");
+    fs.copyFileSync(userTemplatePath, userDestinationPath);
 
     console.log(chalk.green("Prisma schema copied successfully!"));
   } catch (err) {
