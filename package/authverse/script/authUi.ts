@@ -109,15 +109,6 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
       signUpPageDestinationPath
     );
 
-    // Copy proxy.ts
-    const proxyTemplatePath = path.resolve(
-      __dirname,
-      "../../template/proxy/proxy.ts"
-    );
-    const proxyDestinationDir = path.join(projectDir, folder);
-    const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");
-    fs.copyFileSync(proxyTemplatePath, proxyDestinationPath);
-
     // Add layout root layout.tsx
     const layoutPath = path.join(projectDir, folder, "app", "layout.tsx");
     if (fs.existsSync(layoutPath)) {

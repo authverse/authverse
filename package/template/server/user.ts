@@ -12,7 +12,7 @@ export const signIn = async (email: string, password: string) => {
 
     return {
       success: true,
-      message: "Signed in successfully.",
+      message: "Login successfully.",
     };
   } catch (error) {
     const e = error as Error;
