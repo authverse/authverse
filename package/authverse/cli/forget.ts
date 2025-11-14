@@ -119,7 +119,7 @@ export const forget = async () => {
       // Add components/email/reset-password.tsx
       const componentPath = path.resolve(
         __dirname,
-        "../../template/email/reset-password.tsx"
+        "./template/email/reset-password.tsx"
       );
 
       const destinationPath = path.join(
@@ -146,7 +146,7 @@ export const forget = async () => {
       // Add components/authverse/ForgetComponent.tsx
       const forgetComponentPath = path.resolve(
         __dirname,
-        "../../template/components/ForgetComponent.tsx"
+        "./template/components/ForgetComponent.tsx"
       );
       const componentsDestinationPath = path.join(
         projectDir,
@@ -172,7 +172,7 @@ export const forget = async () => {
       // Add components/authverse/ResetComponent.tsx
       const resetComponentPath = path.resolve(
         __dirname,
-        "../../template/components/ResetComponent.tsx"
+        "./template/components/ResetComponent.tsx"
       );
 
       const resetDestinationPath = path.join(
@@ -187,7 +187,7 @@ export const forget = async () => {
       // app add auth
       const authTemplatePath = path.resolve(
         __dirname,
-        "../../template/app-auth-uiDesign"
+        "./template/app-auth-uiDesign"
       );
 
       // Create app directory

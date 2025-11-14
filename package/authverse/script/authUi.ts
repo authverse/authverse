@@ -22,7 +22,7 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
 
     // Copy Auth UI files components
     const projectDir = process.cwd();
-    const componentPath = path.resolve(__dirname, "../../template/components");
+    const componentPath = path.resolve(__dirname, "./template/components");
 
     // Create authverse
     const destinationPath = path.join(
@@ -62,7 +62,7 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
     // app add auth logic route
     const authTemplatePath = path.resolve(
       __dirname,
-      "../../template/app-auth-uiDesign"
+      "./template/app-auth-uiDesign"
     );
 
     // Create app directory

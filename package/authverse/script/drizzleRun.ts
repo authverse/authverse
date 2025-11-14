@@ -51,7 +51,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy auth.ts
     const authTemplatePath = path.resolve(
       __dirname,
-      "../../template/lib/auth-drizzle.ts"
+      "./template/lib/auth-drizzle.ts"
     );
     const authDestinationPath = path.join(libPath, "auth.ts");
     fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -59,13 +59,13 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy auth-client.ts
     const authClientTemplatePath = path.resolve(
       __dirname,
-      "../../template/lib/auth-client.ts"
+      "./template/lib/auth-client.ts"
     );
     const authClientDestinationPath = path.join(libPath, "auth-client.ts");
     fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
 
     // Create db folder
-    const dbTemplatePath = path.resolve(__dirname, "../../template/db");
+    const dbTemplatePath = path.resolve(__dirname, "./template/db");
     const dbDir = path.join(projectDir, folder, "db");
 
     if (!fs.existsSync(dbDir)) {
@@ -83,7 +83,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy drizzle config file
     const drizzleConfigTemplatePath = path.resolve(
       __dirname,
-      "../../template/config/drizzle.config.ts"
+      "./template/config/drizzle.config.ts"
     );
     const drizzleConfigDestinationPath = path.join(
       projectDir,
@@ -100,7 +100,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy user.ts
     const userTemplatePath = path.resolve(
       __dirname,
-      "../../template/server/user.ts"
+      "./template/server/user.ts"
     );
     const userDestinationPath = path.join(serverPath, "user.ts");
     fs.copyFileSync(userTemplatePath, userDestinationPath);
@@ -108,7 +108,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(
       __dirname,
-      "../../template/api/route.ts"
+      "./template/api/route.ts"
     );
 
     // Create the nested directory structure first
@@ -131,7 +131,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy proxy.ts
     const proxyTemplatePath = path.resolve(
       __dirname,
-      "../../template/proxy/proxy.ts"
+      "./template/proxy/proxy.ts"
     );
     const proxyDestinationDir = path.join(projectDir, folder);
     const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");

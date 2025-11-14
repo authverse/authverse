@@ -40,7 +40,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // 1 Paths
     const templatePath = path.resolve(
       __dirname,
-      `../../template/prisma/${answers.database}/schema.prisma`
+      `./template/prisma/${answers.database}/schema.prisma`
     );
 
     // 2 Ensure prisma folder exists
@@ -80,7 +80,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // Copy auth.ts
     const authTemplatePath = path.resolve(
       __dirname,
-      "../../template/lib/auth-prisma.ts"
+      "./template/lib/auth-prisma.ts"
     );
     const authDestinationPath = path.join(libPath, "auth.ts");
     fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -88,7 +88,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // Copy auth-client.ts
     const authClientTemplatePath = path.resolve(
       __dirname,
-      "../../template/lib/auth-client.ts"
+      "./template/lib/auth-client.ts"
     );
     const authClientDestinationPath = path.join(libPath, "auth-client.ts");
     fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -102,7 +102,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // Copy user.ts
     const userTemplatePath = path.resolve(
       __dirname,
-      "../../template/server/user.ts"
+      "./template/server/user.ts"
     );
     const userDestinationPath = path.join(serverPath, "user.ts");
     fs.copyFileSync(userTemplatePath, userDestinationPath);
@@ -110,7 +110,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(
       __dirname,
-      "../../template/api/route.ts"
+      "./template/api/route.ts"
     );
 
     // Create the nested directory structure first
@@ -133,7 +133,7 @@ export const prismaRun = async ({ authUi }: { authUi: boolean }) => {
     // Copy proxy.ts
     const proxyTemplatePath = path.resolve(
       __dirname,
-      "../../template/proxy/proxy.ts"
+      "./template/proxy/proxy.ts"
     );
     const proxyDestinationDir = path.join(projectDir, folder);
     const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");

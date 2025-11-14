@@ -91,7 +91,7 @@ export const githubRun = async () => {
       // Add GithubProviders.tsx to components/authverse
       const componentPath = path.resolve(
         __dirname,
-        "../../template/components/GithubProviders.tsx"
+        "./template/components/GithubProviders.tsx"
       );
 
       const destinationPath = path.join(

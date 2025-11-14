@@ -55,7 +55,7 @@ export const googleRun = async () => {
 
       const componentPath = path.resolve(
         __dirname,
-        "../../template/components/GoogleProviders.tsx"
+        "./template/components/GoogleProviders.tsx"
       );
 
       // Add GoogleProviders.tsx to components/authverse

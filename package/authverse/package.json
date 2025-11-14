@@ -1,6 +1,6 @@
 {
   "name": "authverse",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "CLI tool for creating authverse projects",
   "repository": {
     "url": "https://github.com/abdirahmanmahamoud/authverse"
@@ -17,7 +17,8 @@
     "authverse": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsup ./index.ts --format esm,cjs --dts --out-dir dist",
+    "build": "tsup ./index.ts --format esm,cjs --dts --out-dir dist && cp -r ../template ./dist/template",
+    "build:windows": "tsup ./index.ts --format esm,cjs --dts --out-dir dist && xcopy ..\\template dist\\template /E /I /Y && npm link",
     "dev": "tsup ./index.ts --watch --onSuccess \"node dist/index.js\""
   },
   "publishConfig": {
