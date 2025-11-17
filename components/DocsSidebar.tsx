@@ -1,20 +1,18 @@
 "use client";
+import { PAGES_NEW } from "@/lib/docs";
 import { source } from "@/lib/source";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "./ui/sidebar";
-import Logo from "./Logo";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { PAGES_NEW } from "@/lib/docs";
 
 const sessionOne = [
   {
@@ -22,12 +20,12 @@ const sessionOne = [
     href: "/docs",
   },
   {
-    title: "Features",
-    href: "/docs/features",
-  },
-  {
     title: "Changelog",
     href: "/docs/changelog",
+  },
+  {
+    title: "Installation",
+    href: "/docs/installation",
   },
 ];
 
@@ -35,11 +33,8 @@ const DocsSidebar = ({ tree }: { tree: typeof source.pageTree }) => {
   const pathname = usePathname();
 
   return (
-    <Sidebar className="fixed top-[calc(var(--header-height)+1px)] z-30 hidden h-screen overscroll-none bg-transparent lg:flex lg:border-r px-3">
-      <div className="pt-3" />
-      <SidebarHeader className="px-3 pt-2">
-        <Logo className="w-36" />
-      </SidebarHeader>
+    <Sidebar className="fixed top-[calc(var(--header-height)+1px)] z-30 hidden h-screen overscroll-none bg-transparent lg:flex lg:border-r px-1">
+      <div className="pt-10" />
       <SidebarContent className="mt-5">
         <SidebarGroup>
           <SidebarGroupLabel className="text-muted-foreground font-medium">
