@@ -1,0 +1,90 @@
+---
+title: Installation
+description: How to install and initialize Authverse in your project.
+---
+
+Authverse makes it simple to generate a complete, production-ready authentication system
+for your project with a single command.
+
+This guide covers quick install, optional UI screens, environment variables, and common
+post-install steps so you can get up and running fast.
+
+---
+
+## Prerequisites
+
+- Node.js 16+ (LTS recommended)
+- npm or yarn available in your terminal
+
+---
+
+## Quick install
+
+Run the following in your project root:
+
+```bash
+npx authverse@latest init
+```
+
+The init command scaffolds configuration, models, routes, UI components (optional), and
+recommended environment variables.
+
+---
+
+## Initialize and configure
+
+1. Run the init command above.
+2. Confirm generated files and review the new .env.example.
+3. Copy .env.example → .env and fill in secrets (database URL, JWT secret, provider keys).
+4. Run database migrations if required (see the generated README in your project).
+
+---
+
+### Optional: Auth UI Screens (ShadCN)
+
+Authverse can optionally scaffold ShadCN-based auth screens:
+
+- Login
+- Signup
+- Modern, responsive layout using ShadCN components
+
+Choose the UI option during init or run a later generator provided in the project.
+
+---
+
+## Environment variables (example)
+
+- DATABASE_URL=
+- BETTER_AUTH_SECRET=
+- BETTER_AUTH_URL=http://localhost:3000
+
+Always keep secrets out of source control.
+
+---
+
+## After setup
+
+- Review generated routes and API handlers.
+- Run your dev server and test signup/login flows.
+- Add email/SMS provider credentials for verification if needed.
+- Commit the scaffolded code and update CI environment variables.
+
+---
+
+## Troubleshooting
+
+- "Missing env" — confirm .env contains required keys.
+- "DB connection failed" — verify DATABASE_URL and database is running.
+- For other issues, consult the generated README or open an issue in the Authverse repo.
+
+---
+
+You're ready — Authverse has scaffolded:
+
+- Config & environment templates
+- Database models & migrations
+- Routes & handlers
+- Optional Auth UI components
+- Recommended folder structure
+
+Happy building!
