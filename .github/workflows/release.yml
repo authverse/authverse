@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - canary
+    paths:
+      - "package/authverse/**"
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+
+      - name: Install dependencies
+        working-directory: package/authverse
+        run: npm install
+
+      - name: Install Node types
+        working-directory: package/authverse
+        run: npm install --save-dev @types/node
+
+      - name: Build package
+        working-directory: package/authverse
+        run: npm run build
+
+      - name: Run audit signatures
+        working-directory: package/authverse
+        run: npm audit --audit-level=moderate || true
+
+      - name: Release package
+        working-directory: package/authverse
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
