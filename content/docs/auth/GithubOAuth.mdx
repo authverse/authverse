@@ -1,0 +1,56 @@
+---
+title: GitHub OAuth
+description: GitHub OAuth setup for Authverse projects
+---
+
+This page describes how to add and configure GitHub OAuth for Authverse projects.
+
+## Install the GitHub provider
+
+Run the installer to add the GitHub provider to your project:
+
+```bash
+npx authverse@latest add github
+```
+
+## Configure Authorized Redirect URIs
+
+In GitHub (Settings → Developer settings → OAuth Apps → Your App), set the Authorization callback URL for your OAuth App:
+
+- Local development:
+  - http://localhost:3000/api/auth/callback/github
+- Production:
+  - https://example.com/api/auth/callback/github
+
+If you change your auth base path (the default is `/api/auth`), update these redirect URIs to match the new base path.
+
+## .env setup
+
+Add the following variables to your project's `.env` file:
+
+```
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+Replace the values with the client ID and client secret from your GitHub OAuth App.
+
+Adjust the snippet to use your preferred method of securely storing secrets for CI/deploy pipelines.
+
+## Import and use the GitHub provider component
+
+Import the prebuilt provider component and add it to your UI:
+
+```jsx
+import GithubProviders from "@/components/authverse/GithubProviders";
+
+<GithubProviders />;
+```
+
+This renders the GitHub sign-in option where you include the component.
+
+## Notes & troubleshooting
+
+- Ensure your OAuth App is configured correctly in GitHub and that the callback URL is exact.
+- For production, replace `https://example.com` with your real production domain.
+- If you change the auth callback path or deploy behind proxies, confirm the redirect URI and host are correct in your GitHub OAuth App settings.

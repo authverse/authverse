@@ -1,0 +1,56 @@
+---
+title: Google OAuth
+description: Google OAuth setup for Authverse projects
+---
+
+This page describes how to add and configure Google OAuth for Authverse projects.
+
+## Install the Google provider
+
+Run the installer to add the Google provider to your project:
+
+```bash
+npx authverse@latest add google
+```
+
+## Configure Authorized Redirect URIs
+
+In Google Cloud Console (APIs & Services → Credentials), set the Authorized Redirect URIs for your OAuth 2.0 Client ID:
+
+- Local development:
+  - http://localhost:3000/api/auth/callback/google
+- Production:
+  - https://example.com/api/auth/callback/google
+
+If you change your auth base path (the default is `/api/auth`), update these redirect URIs to match the new base path.
+
+## .env setup
+
+Add the following variables to your project's `.env` file:
+
+```
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+Replace the values with the client ID and client secret from Google Cloud Console.
+
+Adjust the snippet to use your preferred method of securely storing secrets for CI/deploy pipelines.
+
+## Import and use the Google provider component
+
+Import the prebuilt provider component and add it to your UI:
+
+```tsx
+import GoogleProviders from "@/components/authverse/GoogleProviders";
+
+<GoogleProviders />;
+```
+
+This renders the Google sign-in option where you include the component.
+
+## Notes & troubleshooting
+
+- Ensure your OAuth consent screen is configured and published in Google Cloud Console.
+- For production, replace `https://example.com` with your real production domain.
+- If you change the auth callback path or deploy behind proxies, confirm the redirect URI and host are correct in Google Cloud Console.

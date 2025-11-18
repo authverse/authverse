@@ -1,4 +1,4 @@
 {
   "title": "Auth",
-  "pages": ["credentials", "forgetPassword"]
+  "pages": ["credentials", "forgetPassword", "GoogleOAuth", "GithubOAuth"]
 }
