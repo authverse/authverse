@@ -1,6 +1,6 @@
 {
   "name": "authverse",
-  "version": "1.0.0-beta.4",
+  "version": "0.0.0-development",
   "description": "CLI tool for creating authverse projects",
   "repository": {
     "url": "https://github.com/abdirahmanmahamoud/authverse"
@@ -19,7 +19,8 @@
   "scripts": {
     "build": "tsup ./index.ts --format esm,cjs --dts --out-dir dist && cp -r ../template ./dist/template",
     "build:windows": "tsup ./index.ts --format esm,cjs --dts --out-dir dist && xcopy ..\\template dist\\template /E /I /Y && npm link",
-    "dev": "tsup ./index.ts --watch --onSuccess \"node dist/index.js\""
+    "dev": "tsup ./index.ts --watch --onSuccess \"node dist/index.js\"",
+    "semantic-release": "semantic-release"
   },
   "publishConfig": {
     "access": "public"
@@ -27,6 +28,16 @@
   "engines": {
     "node": ">=18"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "auth",
+    "authverse",
+    "auth-ui",
+    "auth-ui-templates"
+  ],
   "dependencies": {
     "chalk": "^5.6.2",
     "commander": "^14.0.2",
@@ -34,6 +45,7 @@
   },
   "devDependencies": {
     "tsup": "^8.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "semantic-release": "^25.0.2"
   }
 }
