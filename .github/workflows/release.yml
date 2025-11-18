@@ -28,16 +28,24 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd package/authverse
+          npm install
 
       - name: Build package
-        run: npm run build
+        run: |
+          cd package/authverse
+          npm run build
 
       - name: Run audit signatures
-        run: npm audit --audit-level=moderate
+        run: |
+          cd package/authverse
+          npm audit --audit-level=moderate
 
       - name: Release package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: |
+          cd package/authverse
+          npx semantic-release
