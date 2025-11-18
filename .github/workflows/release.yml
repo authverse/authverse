@@ -35,6 +35,7 @@ jobs:
       - name: Build package
         run: |
           cd package/authverse
+          npm install --save-dev @types/node
           npm run build
 
       - name: Run audit signatures
