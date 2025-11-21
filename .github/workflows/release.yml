@@ -7,7 +7,7 @@ on:
       - beta
       - canary
     paths:
-      - "package/authverse/**"
+      - "package/**"
 
 permissions:
   contents: write
