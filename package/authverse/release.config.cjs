@@ -12,9 +12,35 @@ module.exports = {
   ],
 
   plugins: [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        preset: "conventionalcommits",
+        releaseRules: [
+          { type: "fix", release: "patch" },
+          { type: "feat", release: "patch" },
+          { type: "featRefactor", release: "minor" },
+          { breaking: true, release: "major" },
+        ],
+      },
+    ],
+
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        preset: "conventionalcommits",
+        presetConfig: {
+          types: [
+            { type: "feat", section: "Features" },
+            { type: "fix", section: "Bug Fixes" },
+            { type: "featRefactor", section: "Features" },
+          ],
+        },
+      },
+    ],
+
     "@semantic-release/changelog",
+
     [
       "@semantic-release/npm",
       {
@@ -22,11 +48,13 @@ module.exports = {
         pkgRoot: "./",
       },
     ],
+
     "@semantic-release/github",
+
     [
       "@semantic-release/git",
       {
-        assets: ["package.json"],
+        assets: ["package.json", "CHANGELOG.md"],
         message:
           "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}",
       },
