@@ -118,8 +118,6 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       fs.appendFileSync(envPath, `\nBETTER_AUTH_URL=http://localhost:3000\n`);
     }
 
-    console.log(chalk.yellow("\n Initialize better-auth files...\n"));
-
     // Check Next.js folder structure src
     const srcPath = path.join(projectDir, "src");
     const folder = srcPath ? "" : "src";
