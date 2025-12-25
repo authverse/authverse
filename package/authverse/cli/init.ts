@@ -3,6 +3,7 @@ import { prismaRun } from "../script/prisma.js";
 import { drizzleRun } from "../script/drizzleRun.js";
 import path from "path";
 import fs from "fs";
+import { prismaRunTanstackState } from "../script/prismaRunTanstackState.js";
 
 export const initAnswer = async () => {
   const projectDir = process.cwd();
@@ -63,7 +64,10 @@ export const initAnswer = async () => {
 
   // tanstack state or Prisma Installation
   if (framework === "tanstack state" && answers.orm === "Prisma") {
-    console.log("tanstack state or Prisma Installation");
+    await prismaRunTanstackState({
+      authUi: answers.authUi,
+      database: answers.database,
+    });
   }
 
   // tanstack state or Drizzle Installation
