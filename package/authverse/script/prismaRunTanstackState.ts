@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import { packageManager, runCommand } from "../utils/packageManager.js";
 import { GenerateSecret } from "../utils/GenerateSecret.js";
+import { authUiTanstackState } from "./authUiTanstackState.js";
 
 export const prismaRunTanstackState = async ({
   authUi,
@@ -191,7 +192,7 @@ export const prismaRunTanstackState = async ({
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      //   await authUiRun({ folder });
+      await authUiTanstackState();
     } else {
       console.log(
         chalk.green(
