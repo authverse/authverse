@@ -10,9 +10,7 @@ export const initAnswer = async () => {
   const projectDir = process.cwd();
   const packageJsonPath = path.join(projectDir, "package.json");
 
-  // -----------------------------
   // Auto detect framework
-  // -----------------------------
   let framework: "Next js" | "tanstack state" = "tanstack state";
 
   if (fs.existsSync(packageJsonPath)) {
