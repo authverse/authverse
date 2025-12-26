@@ -39,6 +39,7 @@
     "auth-ui-templates",
     "better-auth",
     "nextjs",
+    "tanstack state",
     "shadcn"
   ],
   "dependencies": {
