@@ -3,11 +3,11 @@ title: GitHub OAuth
 description: GitHub OAuth setup for Authverse projects
 ---
 
-This page describes how to add and configure GitHub OAuth for Authverse projects.
+This page details how to add and configure GitHub OAuth for Authverse projects.
 
-## Install the GitHub provider
+## Install the GitHub Provider
 
-Run the installer to add the GitHub provider to your project:
+Execute the following command to add the GitHub provider to your project:
 
 ```package-install
 npx authverse@latest add github
@@ -15,31 +15,33 @@ npx authverse@latest add github
 
 ## Configure Authorized Redirect URIs
 
-In GitHub (Settings → Developer settings → OAuth Apps → Your App), set the Authorization callback URL for your OAuth App:
+In your **GitHub Settings** (Developer settings → OAuth Apps → [Your App]), configure the **Authorization callback URL**:
 
-- Local development:
-  - http://localhost:3000/api/auth/callback/github
-- Production:
-  - https://example.com/api/auth/callback/github
+- **Local development**:
+  - `http://localhost:3000/api/auth/callback/github`
+- **Production**:
+  - `https://example.com/api/auth/callback/github`
 
-If you change your auth base path (the default is `/api/auth`), update these redirect URIs to match the new base path.
+> [!NOTE]
+> If you modify your auth base path (default: `/api/auth`), ensure these redirect URIs are updated to match.
 
-## .env setup
+## Environment Setup
 
 Add the following variables to your project's `.env` file:
 
-```
+```bash
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 ```
 
-Replace the values with the client ID and client secret from your GitHub OAuth App.
+Replace the values with the **Client ID** and **Client Secret** from your GitHub OAuth App.
 
-Adjust the snippet to use your preferred method of securely storing secrets for CI/deploy pipelines.
+> [!TIP]
+> Adjust this configuration to use your preferred method for securely storing secrets in CI/CD pipelines.
 
-## Import and use the GitHub provider component
+## Import and Use the GitHub Provider Component
 
-Import the prebuilt provider component and add it to your UI:
+Import the prebuilt provider component and integrate it into your UI:
 
 ```jsx
 import GithubProviders from "@/components/authverse/GithubProviders";
@@ -47,10 +49,10 @@ import GithubProviders from "@/components/authverse/GithubProviders";
 <GithubProviders />;
 ```
 
-This renders the GitHub sign-in option where you include the component.
+This component renders the GitHub sign-in option at its location.
 
-## Notes & troubleshooting
+## Notes & Troubleshooting
 
-- Ensure your OAuth App is configured correctly in GitHub and that the callback URL is exact.
-- For production, replace `https://example.com` with your real production domain.
-- If you change the auth callback path or deploy behind proxies, confirm the redirect URI and host are correct in your GitHub OAuth App settings.
+- **Configuration**: Ensure your OAuth App is correctly configured in GitHub and that the callback URL is exact.
+- **Production Domain**: For production environments, replace `https://example.com` with your authenticated domain.
+- **Proxies**: If changing the auth callback path or deploying behind proxies, verify that the redirect URI and host settings in your GitHub OAuth App match your deployment configuration.

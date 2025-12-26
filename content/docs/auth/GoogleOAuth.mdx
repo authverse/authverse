@@ -3,11 +3,11 @@ title: Google OAuth
 description: Google OAuth setup for Authverse projects
 ---
 
-This page describes how to add and configure Google OAuth for Authverse projects.
+This page details how to add and configure Google OAuth for Authverse projects.
 
-## Install the Google provider
+## Install the Google Provider
 
-Run the installer to add the Google provider to your project:
+Execute the following command to add the Google provider to your project:
 
 ```package-install
 npx authverse@latest add google
@@ -15,31 +15,33 @@ npx authverse@latest add google
 
 ## Configure Authorized Redirect URIs
 
-In Google Cloud Console (APIs & Services → Credentials), set the Authorized Redirect URIs for your OAuth 2.0 Client ID:
+Navigate to the **Google Cloud Console** (APIs & Services → Credentials) and configure the **Authorized Redirect URIs** for your OAuth 2.0 Client ID:
 
-- Local development:
-  - http://localhost:3000/api/auth/callback/google
-- Production:
-  - https://example.com/api/auth/callback/google
+- **Local development**:
+  - `http://localhost:3000/api/auth/callback/google`
+- **Production**:
+  - `https://example.com/api/auth/callback/google`
 
-If you change your auth base path (the default is `/api/auth`), update these redirect URIs to match the new base path.
+> [!NOTE]
+> If you modify your auth base path (default: `/api/auth`), ensure these redirect URIs are updated to match.
 
-## .env setup
+## Environment Setup
 
 Add the following variables to your project's `.env` file:
 
-```
+```bash
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 ```
 
-Replace the values with the client ID and client secret from Google Cloud Console.
+Replace the values with the **Client ID** and **Client Secret** obtained from the Google Cloud Console.
 
-Adjust the snippet to use your preferred method of securely storing secrets for CI/deploy pipelines.
+> [!TIP]
+> Adjust this configuration to use your preferred method for securely storing secrets in CI/CD pipelines.
 
-## Import and use the Google provider component
+## Import and Use the Google Provider Component
 
-Import the prebuilt provider component and add it to your UI:
+Import the prebuilt provider component and integrate it into your UI:
 
 ```tsx
 import GoogleProviders from "@/components/authverse/GoogleProviders";
@@ -47,10 +49,10 @@ import GoogleProviders from "@/components/authverse/GoogleProviders";
 <GoogleProviders />;
 ```
 
-This renders the Google sign-in option where you include the component.
+This component renders the Google sign-in option at its location.
 
-## Notes & troubleshooting
+## Notes & Troubleshooting
 
-- Ensure your OAuth consent screen is configured and published in Google Cloud Console.
-- For production, replace `https://example.com` with your real production domain.
-- If you change the auth callback path or deploy behind proxies, confirm the redirect URI and host are correct in Google Cloud Console.
+- **Consent Screen**: Ensure your OAuth consent screen is fully configured and published in the Google Cloud Console.
+- **Production Domain**: For production environments, replace `https://example.com` with your authenticated domain.
+- **Proxies**: If changing the auth callback path or deploying behind proxies, verify that the redirect URI and host settings in Google Cloud Console match your deployment configuration.
