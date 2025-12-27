@@ -1,17 +1,18 @@
-import { fileURLToPath } from "url";
-import path from "path";
-import fs from "fs";
 import chalk from "chalk";
-import { GenerateSecret } from "../utils/GenerateSecret.js";
-import { authUiRun } from "./authUi.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
 import { packageManager, runCommand } from "../utils/packageManager.js";
+import { GenerateSecret } from "../utils/GenerateSecret.js";
+import { authUiTanstackState } from "./authUiTanstackState.js";
 
-interface prismaRunProps {
+export const prismaRunTanstackState = async ({
+  authUi,
+  database,
+}: {
   authUi: boolean;
   database: "Postgresql" | "Mongodb" | "Mysql";
-}
-
-export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
+}) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -129,12 +130,11 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       fs.appendFileSync(envPath, `\nBETTER_AUTH_URL=http://localhost:3000\n`);
     }
 
-    // Check Next.js folder structure src
+    // src folder
     const srcPath = path.join(projectDir, "src");
-    const folder = srcPath ? "" : "src";
 
     // check exists lib
-    const libPath = path.join(projectDir, folder, "lib");
+    const libPath = path.join(srcPath, "lib");
     if (!fs.existsSync(libPath)) {
       // create lib folder
       fs.mkdirSync(libPath, { recursive: true });
@@ -143,7 +143,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
     // Copy auth.ts
     const authTemplatePath = path.resolve(
       __dirname,
-      `./template/lib/${database}/auth.ts`
+      `./template/TanstackState/lib/${database}/auth.ts`
     );
     const authDestinationPath = path.join(libPath, "auth.ts");
     fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -156,54 +156,43 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
     const authClientDestinationPath = path.join(libPath, "auth-client.ts");
     fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
 
-    // create server folder
-    const serverPath = path.join(projectDir, folder, "server");
-    if (!fs.existsSync(serverPath)) {
-      fs.mkdirSync(serverPath, { recursive: true });
+    // check exists middleware
+    const middlewarePath = path.join(srcPath, "middleware");
+
+    if (!fs.existsSync(middlewarePath)) {
+      //  create middleware folder
+      fs.mkdirSync(middlewarePath, { recursive: true });
     }
 
-    // Copy user.ts
-    const userTemplatePath = path.resolve(
+    // Copy auth.ts
+    const authMiddlewareTemplatePath = path.resolve(
       __dirname,
-      "./template/server/user.ts"
+      `./template/TanstackState/middleware/auth.ts`
     );
-    const userDestinationPath = path.join(serverPath, "user.ts");
-    fs.copyFileSync(userTemplatePath, userDestinationPath);
+    const authMiddlewareDestinationPath = path.join(middlewarePath, "auth.ts");
+    fs.copyFileSync(authMiddlewareTemplatePath, authMiddlewareDestinationPath);
 
-    // Create app/api/auth/[...all]/route.ts - FIXED SECTION
-    const routeTemplatePath = path.resolve(
+    // create file routes/api/auth/$.ts
+    const fileRouteTemplatePath = path.resolve(
       __dirname,
-      "./template/api/route.ts"
+      `./template/TanstackState/routes/$.ts`
     );
-
-    // Create the nested directory structure first
-    const routeDestinationDir = path.join(
-      projectDir,
-      "app",
+    const fileRouteDestinationPath = path.join(
+      srcPath,
+      "routes",
       "api",
-      "auth",
-      "[...all]"
+      "auth"
     );
 
-    // Ensure the directory exists before copying the file
-    if (!fs.existsSync(routeDestinationDir)) {
-      fs.mkdirSync(routeDestinationDir, { recursive: true });
+    if (!fs.existsSync(fileRouteDestinationPath)) {
+      fs.mkdirSync(fileRouteDestinationPath, { recursive: true });
     }
 
-    const routeDestinationPath = path.join(routeDestinationDir, "route.ts");
-    fs.copyFileSync(routeTemplatePath, routeDestinationPath);
-
-    // Copy proxy.ts
-    const proxyTemplatePath = path.resolve(
-      __dirname,
-      "./template/proxy/proxy.ts"
-    );
-    const proxyDestinationDir = path.join(projectDir, folder);
-    const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");
-    fs.copyFileSync(proxyTemplatePath, proxyDestinationPath);
+    const apiDestinationPath = path.join(fileRouteDestinationPath, "$.ts");
+    fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiRun({ folder });
+      await authUiTanstackState();
     } else {
       console.log(
         chalk.green(
@@ -212,6 +201,6 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       );
     }
   } catch (err) {
-    console.error(chalk.red("Prisma setup failed:"), err);
+    console.log(chalk.red("Prisma Run Tanstack State Error: ", err));
   }
 };

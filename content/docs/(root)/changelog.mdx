@@ -3,6 +3,76 @@ title: Changelog
 description: Latest updates and announcements.
 ---
 
+# December 2025 v1.0.7 — TanStack Start Integrations
+
+Authverse v1.0.7 introduces **full TanStack Start support** with updated authentication features, route protection, and nextjs prisna database fixes.
+
+This release improves **TanStack Start integration**, authentication flows, OAuth providers, and database compatibility for Prisma with PostgreSQL and MySQLi.
+
+---
+
+## New Features & Enhancements
+
+### Authentication System
+
+- **Login** and **Signup** flows (email/password)
+- **Forgot password** flow
+- **Reset password** flow
+- Session handling via **Better Auth**
+
+### OAuth Providers
+
+- **Google OAuth** integration
+- **GitHub OAuth** integration
+- Easily extendable to other OAuth providers
+
+### TanStack Start Integration
+
+- Official support for **TanStack Start**
+- Middleware-based route protection for server routes
+- `createFileRoute` compatible with `authMiddleware`
+- Reusable auth middleware for multiple pages (dashboard, profile, settings, admin)
+
+### Nextjs Prisma Database Support & Fixes
+
+- Prisma ORM fixes for **PostgreSQL**
+- Prisma ORM fixes for **MySQLi**
+- Auto-generated schema & migrations
+- Improved stability for database connections and queries
+
+### Developer Experience Improvements
+
+- Clear middleware structure and recommended folder layout
+- Clean imports for `authMiddleware`
+- Reduced boilerplate for protected routes
+- Improved documentation for TanStack Start integration
+
+---
+
+## Fixes & Stability Improvements
+
+- Fixed errors with Next.js + Prisma
+- Fixed session and middleware handling for TanStack Start
+- Improved OAuth callback reliability (Google/GitHub)
+- Resolved Prisma MySQL/PostgreSQL compatibility issues
+- Better error messages for authentication failures
+- Enhanced forgot/reset password API behavior
+
+---
+
+## Summary
+
+Authverse v1.0.7 brings a **complete authentication ecosystem** with:
+
+- Login, Signup, Forgot/Reset Password
+- Google & GitHub OAuth
+- TanStack Start middleware support
+- Prisma + PostgreSQL/MySQLi fixes
+
+This release makes it easier than ever to secure your routes and build modern full-stack applications.
+
+---
+
 # November 2025 v1.0.0 — First Stable Release
 
 Authverse v1.0.0 is the first official **stable release** delivering a complete modern and production-ready authentication system that can be integrated into any Next.js or Node.js project in minutes.
