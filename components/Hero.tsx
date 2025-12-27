@@ -32,25 +32,24 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center text-center space-y-4 max-w-4xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium mb-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            v1.0.0 First Stable Release
-          </div>
-
+          <Link href="/docs/changelog">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              v1.0.7 TanStack Start Integrations
+            </div>
+          </Link>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight text-gray-900 dark:text-white">
             Build Authentication the Modern Way.
           </h1>
-
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Stop wasting time wiring auth from scratch. With Authverse, you get
             a fully generated authentication system Better Auth config, OAuth
             providers, database setup Prisma/Drizzle, and beautiful ShadCN
             screens. All done automatically with a single command.
           </p>
-
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center pt-4">
             <Button
               asChild

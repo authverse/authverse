@@ -17,7 +17,7 @@ Authverse is built for developers who want **fast, clean, and professional authe
 ## What Is Authverse?
 
 Authverse is a CLI tool that creates a full authentication setup for your
-Next.js project.  
+Next.js and TanStack Start` project.  
 It automatically integrates:
 
 - **Better Auth** modern auth framework
