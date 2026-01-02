@@ -3,7 +3,9 @@
   "version": "1.0.7",
   "description": "Authverse Fast modern CLI to generate full auth systems with OAuth Prisma Drizzle better auth and ready-to-use ShadCN UI screens",
   "repository": {
-    "url": "git+https://github.com/abdirahmanmahamoud/authverse.git"
+    "url": "git+https://github.com/abdirahmanmahamoud/authverse.git",
+    "type": "git",
+    "directory": "package/authverse"
   },
   "homepage": "https://authverse.dev",
   "license": "MIT",
