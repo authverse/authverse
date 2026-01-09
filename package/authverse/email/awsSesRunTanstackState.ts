@@ -47,7 +47,7 @@ export const awsSesRunTanstackState = async () => {
       fs.appendFileSync(envPath, `\nAWS_SES_FROM=`);
     }
 
-    // template/email/gmail.tsx
+    // template/email/emailAwsSes.ts
     const templatePath = path.resolve(
       __dirname,
       "./template/email/emailAwsSes.ts"
