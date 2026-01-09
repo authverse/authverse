@@ -1,11 +1,12 @@
 import path from "path";
 import fs from "fs";
 import inquirer from "inquirer";
-import chalk from "chalk";
 import { gmailRun } from "../email/gmailRun.js";
 import { gmailRunTanstackState } from "../email/gmailRunTanstackState.js";
 import { awsSesRun } from "../email/awsSesRun.js";
 import { awsSesRunTanstackState } from "../email/awsSesRunTanstackState.js";
+import { resendRun } from "../email/resendRun.js";
+import { resendRunTanstackState } from "../email/resendRunTanstackState.js";
 
 export const email = async () => {
   const projectDir = process.cwd();
@@ -89,5 +90,11 @@ export const email = async () => {
   }
   if (answers.emailProvider === "AWS SES" && framework === "tanstack state") {
     await awsSesRunTanstackState();
+  }
+  if (answers.emailProvider === "Resend" && framework === "Next js") {
+    await resendRun();
+  }
+  if (answers.emailProvider === "Resend" && framework === "tanstack state") {
+    await resendRunTanstackState();
   }
 };
