@@ -4,6 +4,8 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import { gmailRun } from "../email/gmailRun.js";
 import { gmailRunTanstackState } from "../email/gmailRunTanstackState.js";
+import { awsSesRun } from "../email/awsSesRun.js";
+import { awsSesRunTanstackState } from "../email/awsSesRunTanstackState.js";
 
 export const email = async () => {
   const projectDir = process.cwd();
@@ -81,5 +83,11 @@ export const email = async () => {
   }
   if (answers.emailProvider === "Gmail" && framework === "tanstack state") {
     await gmailRunTanstackState();
+  }
+  if (answers.emailProvider === "AWS SES" && framework === "Next js") {
+    await awsSesRun();
+  }
+  if (answers.emailProvider === "AWS SES" && framework === "tanstack state") {
+    await awsSesRunTanstackState();
   }
 };
