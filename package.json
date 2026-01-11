@@ -28,16 +28,16 @@
     "clsx": "^2.1.1",
     "fumadocs-core": "^16.4.2",
     "fumadocs-mdx": "^14.2.4",
-    "fumadocs-ui": "^16.4.2",
+    "fumadocs-ui": "^16.4.6",
     "jotai": "^2.16.1",
     "lucide-react": "^0.562.0",
-    "motion": "^12.23.26",
+    "motion": "^12.25.0",
     "next": "16.1.1",
     "nuqs": "^2.8.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.0",
-    "zod": "^4.3.4"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
