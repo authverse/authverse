@@ -14,7 +14,7 @@ export const forgetTanstack = async () => {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
-    // Check Next.js folder structure src
+    // Check src folder
     const srcPath = path.join(projectDir, "src");
 
     // check exits email.ts
