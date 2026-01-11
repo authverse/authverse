@@ -10,7 +10,6 @@ export const verifyTanstack = async () => {
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-
     const srcPath = path.join(projectDir, "src");
 
     // Ensure email.ts exists
