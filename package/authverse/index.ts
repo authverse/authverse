@@ -4,7 +4,6 @@ import { initAnswer } from "./cli/init.js";
 import { readFileSync } from "fs";
 import { providers } from "./cli/provider.js";
 import { forget } from "./cli/forget.js";
-import { isNextJsProject } from "./script/detect-nextjs.js";
 import chalk from "chalk";
 import { email } from "./cli/email.js";
 import { verification } from "./cli/verification.js";
@@ -24,12 +23,8 @@ program
 program
   .command("init")
   .description("Select project template and configuration")
-  .action(() => {
-    if (!isNextJsProject) {
-      console.log(chalk.red("Only Next.js projects are supported."));
-      process.exit(1);
-    }
-    initAnswer();
+  .action(async () => {
+    await initAnswer();
   });
 
 program
