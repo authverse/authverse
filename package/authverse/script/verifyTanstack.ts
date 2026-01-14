@@ -88,12 +88,20 @@ export const verifyTanstack = async () => {
         content.slice(insertAt + 2);
     }
 
-    if (!content.includes("EmailVerification")) {
+    if (!content.includes("import EmailVerification")) {
       const lastImport = content.lastIndexOf("import");
       const nextLine = content.indexOf("\n", lastImport) + 1;
 
       const imports = `import EmailVerification from "@/components/email/EmailVerification";
-import { sendEmail } from "./email";
+`;
+
+      content = content.slice(0, nextLine) + imports + content.slice(nextLine);
+    }
+    if (!content.includes("import { sendEmail }")) {
+      const lastImport = content.lastIndexOf("import");
+      const nextLine = content.indexOf("\n", lastImport) + 1;
+
+      const imports = `import { sendEmail } from "./email";
 `;
 
       content = content.slice(0, nextLine) + imports + content.slice(nextLine);
