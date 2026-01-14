@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,8 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useState } from "react";
-import { signIn } from "@/server/user";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -47,20 +46,24 @@ const LoginComponent = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    try {
-      const { success, message } = await signIn(data.email, data.password);
-
-      if (success === true) {
-        router.push("/");
-        toast.success(message);
-      } else {
-        toast.error(message);
+    await authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: (data) => {
+          toast.success("Login successful!");
+          setIsLoading(false);
+          router.push("/");
+        },
+        onError: (error: any) => {
+          setIsLoading(false);
+          toast.error(error.error.message);
+        },
       }
-      setIsLoading(false);
-    } catch (error: any) {
-      toast.error(error.message);
-      setIsLoading(false);
-    }
+    );
   };
 
   return (
