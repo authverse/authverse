@@ -176,19 +176,6 @@ export const drizzleRun = async (authUi: boolean) => {
       );
       fs.copyFileSync(drizzleConfigTemplatePath, drizzleConfigDestinationPath);
     }
-    // create server folder
-    const serverPath = path.join(projectDir, srcFolder, "server");
-    if (!fs.existsSync(serverPath)) {
-      fs.mkdirSync(serverPath, { recursive: true });
-    }
-
-    // Copy user.ts
-    const userTemplatePath = path.resolve(
-      __dirname,
-      "./template/server/user.ts"
-    );
-    const userDestinationPath = path.join(serverPath, "user.ts");
-    fs.copyFileSync(userTemplatePath, userDestinationPath);
 
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(

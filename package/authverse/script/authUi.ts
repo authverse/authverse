@@ -52,9 +52,6 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
       SignUpDestinationPath
     );
 
-    const LogoutDestinationPath = path.join(destinationPath, "Logout.tsx");
-    fs.copyFileSync(`${componentPath}/Logout.tsx`, LogoutDestinationPath);
-
     // app add auth logic route
     const authTemplatePath = path.resolve(
       __dirname,
