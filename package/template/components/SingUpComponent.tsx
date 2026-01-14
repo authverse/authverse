@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,14 +22,14 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useState } from "react";
-import { signUp } from "@/server/user";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "Name must be at least 3 characters",
   }),
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8, {
     message: "Password must be at least 8 characters",
   }),
@@ -51,24 +50,25 @@ const SingUpComponent = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
-    try {
-      const { success, message } = await signUp(
-        data.name,
-        data.email,
-        data.password
-      );
-
-      if (success === true) {
-        router.push("/");
-        toast.success(message);
-      } else {
-        toast.error(message);
+    await authClient.signUp.email(
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          toast.success("Sign up successful!");
+          setIsLoading(false);
+          router.push("/");
+        },
+        onError: (error: any) => {
+          setIsLoading(false);
+          toast.error(error.error.message);
+        },
       }
-      setIsLoading(false);
-    } catch (error: any) {
-      toast.error(error.message);
-      setIsLoading(false);
-    }
+    );
   };
 
   return (
