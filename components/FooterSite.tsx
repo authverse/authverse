@@ -17,7 +17,7 @@ const socialItems = [
   },
   {
     icons: IconBrandX,
-    href: "https://x.com/authverse",
+    href: "https://x.com/abdumahamoud",
     label: "X (Twitter)",
     description: "Follow for updates",
   },
