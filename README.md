@@ -71,7 +71,6 @@ Authverse will guide you step-by-step to choose:
 - Your UI framework
 - Your database Prisma or Drizzle
 - Whether to include auth UI screens
-- Your OAuth providers
 - And automatically generate everything for you
 
 After running the CLI, your project will be fully ready with  
