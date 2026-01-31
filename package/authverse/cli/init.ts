@@ -14,7 +14,7 @@ export const initAnswer = async () => {
     return;
   }
 
-  console.log(chalk.green(`✔ Detected framework: ${framework}`));
+  console.log(`✔ Detected framework: ${framework}`);
 
   // User prompts (NO framework)
   const answers = await inquirer.prompt([
