@@ -4,7 +4,8 @@ on:
   pull_request:
     types: [opened, synchronize, labeled]
     paths:
-      - "package/**"
+      - "package/authverse/**"
+      - "package/template/**"
 
 concurrency:
   group: pkg-pr-new-${{ github.event.pull_request.number }}
@@ -28,11 +29,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: package/authverse
-        run: npm install
+        run: pnpm install
 
       - name: Build package
         working-directory: package/authverse
-        run: npm run build
+        run: pnpm run build
 
       - name: Set preview version
         working-directory: package/authverse

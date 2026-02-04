@@ -3,10 +3,12 @@ name: Build and Test
 on:
   push:
     paths:
-      - "package/**"
+      - "package/authverse/**"
+      - "package/template/**"
   pull_request:
     paths:
-      - "package/**"
+      - "package/authverse/**"
+      - "package/template/**"
 
 jobs:
   build:
@@ -23,8 +25,8 @@ jobs:
 
       - name: Install dependencies
         working-directory: package/authverse
-        run: npm install
+        run: pnpm install
 
       - name: Build project
         working-directory: package/authverse
-        run: npm run build
+        run: pnpm run build

@@ -27,11 +27,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: package/authverse
-        run: npm ci
+        run: pnpm install
 
       - name: Build package
         working-directory: package/authverse
-        run: npm run build
+        run: pnpm run build
 
       - name: Check version matches tag
         working-directory: package/authverse
