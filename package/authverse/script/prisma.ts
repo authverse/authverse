@@ -60,7 +60,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       //  Paths
       const templatePath = path.resolve(
         __dirname,
-        `./template/prisma/${database}/schema.prisma`
+        `./template/prisma/${database}/schema.prisma`,
       );
 
       //  Ensure prisma folder exists
@@ -76,7 +76,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       if (database === "Mongodb") {
         const prismaConfigPath = path.resolve(
           __dirname,
-          `./template/config/prisma.config.ts`
+          `./template/config/prisma.config.ts`,
         );
         const prismaConfigDestinationPath = path.join("", "prisma.config.ts");
 
@@ -99,7 +99,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
         // Template path
         const templatePath = path.resolve(
           __dirname,
-          `./template/prisma/${database}/schema.prisma_copy`
+          `./template/prisma/${database}/schema.prisma_copy`,
         );
 
         // Copy schema.prisma
@@ -158,7 +158,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
         // Copy auth.ts
         const authTemplatePath = path.resolve(
           __dirname,
-          `./template/lib/${database}/auth.ts`
+          `./template/lib/${database}/auth.ts`,
         );
         const authDestinationPath = path.join(libPath, "auth.ts");
         fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -166,7 +166,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
         // Copy auth-client.ts
         const authClientTemplatePath = path.resolve(
           __dirname,
-          "./template/lib/auth-client.ts"
+          "./template/lib/auth-client.ts",
         );
         const authClientDestinationPath = path.join(libPath, "auth-client.ts");
         fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -179,8 +179,8 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
             authContextPath,
             authContextContent.replace(
               'import { PrismaClient } from "@/generated/prisma/client";',
-              'import { PrismaClient } from "../../generated/prisma/client";'
-            )
+              'import { PrismaClient } from "../../generated/prisma/client";',
+            ),
           );
         }
       }
@@ -188,7 +188,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       // Copy auth.ts
       const authTemplatePath = path.resolve(
         __dirname,
-        `./template/lib/${database}/auth.ts`
+        `./template/lib/${database}/auth.ts`,
       );
       const authDestinationPath = path.join(libPath, "auth.ts");
       fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -196,7 +196,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       // Copy auth-client.ts
       const authClientTemplatePath = path.resolve(
         __dirname,
-        "./template/lib/auth-client.ts"
+        "./template/lib/auth-client.ts",
       );
       const authClientDestinationPath = path.join(libPath, "auth-client.ts");
       fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -209,8 +209,8 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
           authContextPath,
           authContextContent.replace(
             'import { PrismaClient } from "@/generated/prisma/client";',
-            'import { PrismaClient } from "../../generated/prisma/client";'
-          )
+            'import { PrismaClient } from "../../generated/prisma/client";',
+          ),
         );
       }
     }
@@ -218,7 +218,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(
       __dirname,
-      "./template/api/route.ts"
+      "./template/api/route.ts",
     );
 
     // Create the nested directory structure first
@@ -228,7 +228,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       "app",
       "api",
       "auth",
-      "[...all]"
+      "[...all]",
     );
 
     // Ensure the directory exists before copying the file
@@ -242,7 +242,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
     // Copy proxy.ts
     const proxyTemplatePath = path.resolve(
       __dirname,
-      "./template/proxy/proxy.ts"
+      "./template/proxy/proxy.ts",
     );
     const proxyDestinationDir = path.join(projectDir, srcFolder);
     const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");
@@ -255,21 +255,21 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
     if (srcFolder === "src") {
       fs.writeFileSync(
         gitignorePath,
-        gitignoreContent.replace("/src/generated/prisma", "/generated")
+        gitignoreContent.replace("/src/generated/prisma", "/generated"),
       );
     } else {
       fs.writeFileSync(
         gitignorePath,
-        gitignoreContent.replace("generated/prisma", "/generated")
+        gitignoreContent.replace("generated/prisma", "/generated"),
       );
     }
     if (authUi) {
-      await authUiRun({ folder: srcFolder });
+      await authUiRun({ folder: srcFolder, packageJson: packageJson });
     } else {
       console.log(
         chalk.green(
-          "\nPrisma setup completed successfully and better-auth installed\n"
-        )
+          "\nPrisma setup completed successfully and better-auth installed\n",
+        ),
       );
     }
   } catch (err) {

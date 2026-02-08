@@ -88,7 +88,7 @@ export const drizzleRun = async (authUi: boolean) => {
         // Copy auth.ts
         const authTemplatePath = path.resolve(
           __dirname,
-          "./template/lib/auth-drizzle.ts"
+          "./template/lib/auth-drizzle.ts",
         );
         const authDestinationPath = path.join(libPath, "auth.ts");
         fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -96,7 +96,7 @@ export const drizzleRun = async (authUi: boolean) => {
         // Copy auth-client.ts
         const authClientTemplatePath = path.resolve(
           __dirname,
-          "./template/lib/auth-client.ts"
+          "./template/lib/auth-client.ts",
         );
         const authClientDestinationPath = path.join(libPath, "auth-client.ts");
         fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -105,7 +105,7 @@ export const drizzleRun = async (authUi: boolean) => {
       // Copy auth.ts
       const authTemplatePath = path.resolve(
         __dirname,
-        "./template/lib/auth-drizzle.ts"
+        "./template/lib/auth-drizzle.ts",
       );
       const authDestinationPath = path.join(libPath, "auth.ts");
       fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -113,7 +113,7 @@ export const drizzleRun = async (authUi: boolean) => {
       // Copy auth-client.ts
       const authClientTemplatePath = path.resolve(
         __dirname,
-        "./template/lib/auth-client.ts"
+        "./template/lib/auth-client.ts",
       );
       const authClientDestinationPath = path.join(libPath, "auth-client.ts");
       fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -158,21 +158,21 @@ export const drizzleRun = async (authUi: boolean) => {
     if (srcFolder == "src") {
       const drizzleConfigTemplatePath = path.resolve(
         __dirname,
-        "./template/config/drizzle.config-src.ts"
+        "./template/config/drizzle.config-src.ts",
       );
       const drizzleConfigDestinationPath = path.join(
         projectDir,
-        "drizzle.config.ts"
+        "drizzle.config.ts",
       );
       fs.copyFileSync(drizzleConfigTemplatePath, drizzleConfigDestinationPath);
     } else {
       const drizzleConfigTemplatePath = path.resolve(
         __dirname,
-        "./template/config/drizzle.config.ts"
+        "./template/config/drizzle.config.ts",
       );
       const drizzleConfigDestinationPath = path.join(
         projectDir,
-        "drizzle.config.ts"
+        "drizzle.config.ts",
       );
       fs.copyFileSync(drizzleConfigTemplatePath, drizzleConfigDestinationPath);
     }
@@ -180,7 +180,7 @@ export const drizzleRun = async (authUi: boolean) => {
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(
       __dirname,
-      "./template/api/route.ts"
+      "./template/api/route.ts",
     );
     // Create the nested directory structure first
     const routeDestinationDir = path.join(
@@ -189,7 +189,7 @@ export const drizzleRun = async (authUi: boolean) => {
       "app",
       "api",
       "auth",
-      "[...all]"
+      "[...all]",
     );
 
     // Ensure the directory exists before copying the file
@@ -203,19 +203,19 @@ export const drizzleRun = async (authUi: boolean) => {
     // Copy proxy.ts
     const proxyTemplatePath = path.resolve(
       __dirname,
-      "./template/proxy/proxy.ts"
+      "./template/proxy/proxy.ts",
     );
     const proxyDestinationDir = path.join(projectDir, srcFolder);
     const proxyDestinationPath = path.join(proxyDestinationDir, "proxy.ts");
     fs.copyFileSync(proxyTemplatePath, proxyDestinationPath);
 
     if (authUi) {
-      await authUiRun({ folder: srcFolder });
+      await authUiRun({ folder: srcFolder, packageJson: packageJson });
     } else {
       console.log(
         chalk.green(
-          "\nDrizzle setup completed successfully and better-auth installed\n"
-        )
+          "\nDrizzle setup completed successfully and better-auth installed\n",
+        ),
       );
     }
   } catch (err) {
