@@ -44,7 +44,7 @@ export const authUiTanstackState = async ({
         .join(" ");
       runCommand(`shadcn@latest add ${install}`);
     }
-    console.log(packageJson);
+
     if (!packageJson.dependencies?.["@tanstack/react-form"]) {
       packageManager("@tanstack/react-form");
     }
