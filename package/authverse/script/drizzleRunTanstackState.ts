@@ -149,7 +149,7 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiTanstackState(packageJson);
+      await authUiTanstackState({ packageJson: packageJson });
     } else {
       console.log(
         chalk.green(
