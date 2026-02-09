@@ -144,18 +144,56 @@ export const prismaRun = async ({ authUi, database, cmd }: prismaRunProps) => {
     // Check exists lib/auth.ts or auth-client.ts
     const authPath = path.join(libPath, "auth.ts");
     const authClientPath = path.join(libPath, "auth-client.ts");
-    if (fs.existsSync(authPath) || fs.existsSync(authClientPath)) {
-      const answers = await inquirer.prompt([
-        {
-          type: "confirm",
-          name: "overwrite",
-          message:
-            "Do you want to overwrite existing auth lib/auth.ts or lib/auth-client.ts",
-          default: false,
-        },
-      ]);
 
-      if (answers.overwrite) {
+    if (cmd !== true) {
+      if (fs.existsSync(authPath) || fs.existsSync(authClientPath)) {
+        const answers = await inquirer.prompt([
+          {
+            type: "confirm",
+            name: "overwrite",
+            message:
+              "Do you want to overwrite existing auth lib/auth.ts or lib/auth-client.ts",
+            default: false,
+          },
+        ]);
+
+        if (answers.overwrite) {
+          // Copy auth.ts
+          const authTemplatePath = path.resolve(
+            __dirname,
+            `./template/lib/${database}/auth.ts`,
+          );
+          const authDestinationPath = path.join(libPath, "auth.ts");
+          fs.copyFileSync(authTemplatePath, authDestinationPath);
+
+          // Copy auth-client.ts
+          const authClientTemplatePath = path.resolve(
+            __dirname,
+            "./template/lib/auth-client.ts",
+          );
+          const authClientDestinationPath = path.join(
+            libPath,
+            "auth-client.ts",
+          );
+          fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
+
+          if (srcFolder === "src") {
+            // context auth.ts update import prisma client
+            const authContextPath = path.join(libPath, "auth.ts");
+            const authContextContent = fs.readFileSync(
+              authContextPath,
+              "utf-8",
+            );
+            fs.writeFileSync(
+              authContextPath,
+              authContextContent.replace(
+                'import { PrismaClient } from "@/generated/prisma/client";',
+                'import { PrismaClient } from "../../generated/prisma/client";',
+              ),
+            );
+          }
+        }
+      } else {
         // Copy auth.ts
         const authTemplatePath = path.resolve(
           __dirname,
@@ -185,37 +223,7 @@ export const prismaRun = async ({ authUi, database, cmd }: prismaRunProps) => {
           );
         }
       }
-    } else {
-      // Copy auth.ts
-      const authTemplatePath = path.resolve(
-        __dirname,
-        `./template/lib/${database}/auth.ts`,
-      );
-      const authDestinationPath = path.join(libPath, "auth.ts");
-      fs.copyFileSync(authTemplatePath, authDestinationPath);
-
-      // Copy auth-client.ts
-      const authClientTemplatePath = path.resolve(
-        __dirname,
-        "./template/lib/auth-client.ts",
-      );
-      const authClientDestinationPath = path.join(libPath, "auth-client.ts");
-      fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
-
-      if (srcFolder === "src") {
-        // context auth.ts update import prisma client
-        const authContextPath = path.join(libPath, "auth.ts");
-        const authContextContent = fs.readFileSync(authContextPath, "utf-8");
-        fs.writeFileSync(
-          authContextPath,
-          authContextContent.replace(
-            'import { PrismaClient } from "@/generated/prisma/client";',
-            'import { PrismaClient } from "../../generated/prisma/client";',
-          ),
-        );
-      }
     }
-
     // Create app/api/auth/[...all]/route.ts - FIXED SECTION
     const routeTemplatePath = path.resolve(
       __dirname,

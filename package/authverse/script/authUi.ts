@@ -59,12 +59,12 @@ export const authUiRun = async ({
         .join(" ");
       runCommand(`shadcn@latest add ${install}`);
     }
-
     if (
       !packageJson.dependencies?.["react-hook-form"] ||
-      !packageJson.dependencies?.["@hookform/resolvers"]
+      !packageJson.dependencies?.["@hookform/resolvers"] ||
+      !packageJson.dependencies?.["zod"]
     ) {
-      packageManager("react-hook-form @hookform/resolvers");
+      packageManager("react-hook-form @hookform/resolvers zod");
     }
 
     //  Fix for __dirname in ES module
