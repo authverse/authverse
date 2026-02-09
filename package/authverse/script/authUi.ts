@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { packageManager, runCommand } from "../utils/packageManager.js";
+import { crc32 } from "zlib";
 
 const shadcnComponents = [
   "button.tsx",
@@ -17,20 +18,30 @@ const shadcnComponents = [
 export const authUiRun = async ({
   folder,
   packageJson,
+  cmd,
 }: {
   folder: string;
   packageJson: any;
+  cmd: boolean;
 }) => {
   try {
     const projectDir = process.cwd();
-    // install shadcn ui
-    console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
 
     // check if shadcn ui is already installed
     const shadcnPath = path.join(projectDir, folder, "components", "ui");
 
-    if (!fs.existsSync(shadcnPath)) {
-      runCommand("shadcn@latest add button sonner card field input");
+    // shadcn config file
+    const shadcnConfigPath = path.join(projectDir, "components.json");
+
+    if (!fs.existsSync(shadcnPath) || !fs.existsSync(shadcnConfigPath)) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+
+      if (cmd == true) {
+        runCommand("shadcn@latest init --base-color zinc --yes");
+        runCommand("shadcn@latest add button sonner card field input");
+      } else {
+        runCommand("shadcn@latest add button sonner card field input");
+      }
     }
     // list all files in shadcnPath
     const shadcnFiles = fs.readdirSync(shadcnPath);
@@ -41,6 +52,8 @@ export const authUiRun = async ({
     );
 
     if (missingComponents.length > 0) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+
       const install = missingComponents
         .map((components) => components.split(".")[0])
         .join(" ");
@@ -48,7 +61,7 @@ export const authUiRun = async ({
     }
 
     if (
-      !packageJson.dependencies?.["react-hook-form"] &&
+      !packageJson.dependencies?.["react-hook-form"] ||
       !packageJson.dependencies?.["@hookform/resolvers"]
     ) {
       packageManager("react-hook-form @hookform/resolvers");

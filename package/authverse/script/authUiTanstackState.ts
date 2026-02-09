@@ -16,19 +16,28 @@ const shadcnComponents = [
 
 export const authUiTanstackState = async ({
   packageJson,
+  cmd,
 }: {
   packageJson: any;
+  cmd: boolean;
 }) => {
   try {
     const projectDir = process.cwd();
-    // install shadcn ui
-    console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
 
     // check if shadcn ui is already installed
     const shadcnPath = path.join(projectDir, "src", "components", "ui");
 
-    if (!fs.existsSync(shadcnPath)) {
-      runCommand("shadcn@latest add button sonner card field input");
+    // shadcn config file
+    const shadcnConfigPath = path.join(projectDir, "components.json");
+
+    if (!fs.existsSync(shadcnPath) || !fs.existsSync(shadcnConfigPath)) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+      if (cmd == true) {
+        runCommand("shadcn@latest init --base-color zinc --yes");
+        runCommand("shadcn@latest add button sonner card field input");
+      } else {
+        runCommand("shadcn@latest add button sonner card field input");
+      }
     }
     // list all files in shadcnPath
     const shadcnFiles = fs.readdirSync(shadcnPath);
@@ -39,6 +48,7 @@ export const authUiTanstackState = async ({
     );
 
     if (missingComponents.length > 0) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
       const install = missingComponents
         .map((components) => components.split(".")[0])
         .join(" ");

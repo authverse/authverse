@@ -25,11 +25,15 @@ export const initCmd = async (cmd: cmdType) => {
       await prismaRun({
         database: cmd.db,
         authUi: cmd.authUi === "yes" ? true : false,
+        cmd: true,
       });
     }
     // nextjs or Drizzle Installation
     if (framework === "Next js" && cmd.orm === "drizzle") {
-      await drizzleRun(cmd.authUi === "yes" ? true : false);
+      await drizzleRun({
+        authUi: cmd.authUi === "yes" ? true : false,
+        cmd: true,
+      });
     }
 
     // tanstack state or Prisma Installation
@@ -37,12 +41,16 @@ export const initCmd = async (cmd: cmdType) => {
       await prismaRunTanstackState({
         authUi: cmd.authUi === "yes" ? true : false,
         database: cmd.db,
+        cmd: true,
       });
     }
 
     // tanstack state or Drizzle Installation
     if (framework === "tanstack state" && cmd.orm === "drizzle") {
-      await drizzleRunTanstackState(cmd.authUi === "yes" ? true : false);
+      await drizzleRunTanstackState({
+        authUi: cmd.authUi === "yes" ? true : false,
+        cmd: true,
+      });
     }
   } catch (error: any) {
     console.log(chalk.red(error));

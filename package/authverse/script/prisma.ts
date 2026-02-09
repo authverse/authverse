@@ -10,9 +10,10 @@ import inquirer from "inquirer";
 interface prismaRunProps {
   authUi: boolean;
   database: "Postgresql" | "Mongodb" | "Mysql";
+  cmd: boolean;
 }
 
-export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
+export const prismaRun = async ({ authUi, database, cmd }: prismaRunProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -27,7 +28,7 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
 
     // Check install prisma and @prisma/client
     if (
-      !packageJson.devDependencies?.prisma &&
+      !packageJson.devDependencies?.prisma ||
       !packageJson.dependencies?.["@prisma/client"]
     ) {
       console.log(chalk.cyan("\n⚙️  Initializing Prisma...\n"));
@@ -91,9 +92,9 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
 
       // check if schema.prisma user, session, account, verification
       if (
-        !schemaContent.includes("User") &&
-        !schemaContent.includes("Session") &&
-        !schemaContent.includes("Account") &&
+        !schemaContent.includes("User") ||
+        !schemaContent.includes("Session") ||
+        !schemaContent.includes("Account") ||
         !schemaContent.includes("Verification")
       ) {
         // Template path
@@ -264,7 +265,11 @@ export const prismaRun = async ({ authUi, database }: prismaRunProps) => {
       );
     }
     if (authUi) {
-      await authUiRun({ folder: srcFolder, packageJson: packageJson });
+      await authUiRun({
+        folder: srcFolder,
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(

@@ -7,7 +7,12 @@ import { authUiRun } from "./authUi.js";
 import { packageManager } from "../utils/packageManager.js";
 import inquirer from "inquirer";
 
-export const drizzleRun = async (authUi: boolean) => {
+interface drizzleRunProps {
+  authUi: boolean;
+  cmd: boolean;
+}
+
+export const drizzleRun = async ({ authUi, cmd }: drizzleRunProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -210,7 +215,11 @@ export const drizzleRun = async (authUi: boolean) => {
     fs.copyFileSync(proxyTemplatePath, proxyDestinationPath);
 
     if (authUi) {
-      await authUiRun({ folder: srcFolder, packageJson: packageJson });
+      await authUiRun({
+        folder: srcFolder,
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(

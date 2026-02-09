@@ -6,13 +6,17 @@ import { packageManager, runCommand } from "../utils/packageManager.js";
 import { GenerateSecret } from "../utils/GenerateSecret.js";
 import { authUiTanstackState } from "./authUiTanstackState.js";
 
+interface prismaRunTanstackStateProps {
+  authUi: boolean;
+  database: "Postgresql" | "Mongodb" | "Mysql";
+  cmd: boolean;
+}
+
 export const prismaRunTanstackState = async ({
   authUi,
   database,
-}: {
-  authUi: boolean;
-  database: "Postgresql" | "Mongodb" | "Mysql";
-}) => {
+  cmd,
+}: prismaRunTanstackStateProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -27,7 +31,7 @@ export const prismaRunTanstackState = async ({
 
     // Check install prisma and @prisma/client
     if (
-      !packageJson.devDependencies?.prisma &&
+      !packageJson.devDependencies?.prisma ||
       !packageJson.dependencies?.["@prisma/client"]
     ) {
       console.log(chalk.cyan("\n⚙️  Initializing Prisma...\n"));
@@ -91,9 +95,9 @@ export const prismaRunTanstackState = async ({
 
       // check if schema.prisma user, session, account, verification
       if (
-        !schemaContent.includes("User") &&
-        !schemaContent.includes("Session") &&
-        !schemaContent.includes("Account") &&
+        !schemaContent.includes("User") ||
+        !schemaContent.includes("Session") ||
+        !schemaContent.includes("Account") ||
         !schemaContent.includes("Verification")
       ) {
         // Template path
@@ -192,7 +196,10 @@ export const prismaRunTanstackState = async ({
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiTanstackState({ packageJson: packageJson });
+      await authUiTanstackState({
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(

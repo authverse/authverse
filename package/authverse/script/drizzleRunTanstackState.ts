@@ -6,7 +6,15 @@ import { GenerateSecret } from "../utils/GenerateSecret.js";
 import { packageManager } from "../utils/packageManager.js";
 import { authUiTanstackState } from "./authUiTanstackState.js";
 
-export const drizzleRunTanstackState = async (authUi: boolean) => {
+interface drizzleRunTanstackStateProps {
+  authUi: boolean;
+  cmd: boolean;
+}
+
+export const drizzleRunTanstackState = async ({
+  authUi,
+  cmd,
+}: drizzleRunTanstackStateProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -149,7 +157,10 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiTanstackState({ packageJson: packageJson });
+      await authUiTanstackState({
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(
