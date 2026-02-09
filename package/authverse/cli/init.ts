@@ -44,12 +44,16 @@ export const initAnswer = async () => {
     await prismaRun({
       authUi: answers.authUi,
       database: answers.database,
+      cmd: false,
     });
   }
 
   // nextjs or Drizzle Installation
   if (framework === "Next js" && answers.orm === "Drizzle") {
-    await drizzleRun(answers.authUi);
+    await drizzleRun({
+      authUi: answers.authUi,
+      cmd: false,
+    });
   }
 
   // tanstack state or Prisma Installation
@@ -57,11 +61,15 @@ export const initAnswer = async () => {
     await prismaRunTanstackState({
       authUi: answers.authUi,
       database: answers.database,
+      cmd: false,
     });
   }
 
   // tanstack state or Drizzle Installation
   if (framework === "tanstack state" && answers.orm === "Drizzle") {
-    await drizzleRunTanstackState(answers.authUi);
+    await drizzleRunTanstackState({
+      authUi: answers.authUi,
+      cmd: false,
+    });
   }
 };

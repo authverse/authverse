@@ -6,7 +6,15 @@ import { GenerateSecret } from "../utils/GenerateSecret.js";
 import { packageManager } from "../utils/packageManager.js";
 import { authUiTanstackState } from "./authUiTanstackState.js";
 
-export const drizzleRunTanstackState = async (authUi: boolean) => {
+interface drizzleRunTanstackStateProps {
+  authUi: boolean;
+  cmd: boolean;
+}
+
+export const drizzleRunTanstackState = async ({
+  authUi,
+  cmd,
+}: drizzleRunTanstackStateProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -73,7 +81,7 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     // Copy auth.ts
     const authTemplatePath = path.resolve(
       __dirname,
-      "./template/TanstackState/lib/auth-drizzle.ts"
+      "./template/TanstackState/lib/auth-drizzle.ts",
     );
     const authDestinationPath = path.join(libPath, "auth.ts");
     fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -81,7 +89,7 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     // Copy auth-client.ts
     const authClientTemplatePath = path.resolve(
       __dirname,
-      "./template/lib/auth-client.ts"
+      "./template/lib/auth-client.ts",
     );
     const authClientDestinationPath = path.join(libPath, "auth-client.ts");
     fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -105,11 +113,11 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     // Copy drizzle config file
     const drizzleConfigTemplatePath = path.resolve(
       __dirname,
-      "./template/config/drizzle.config.ts"
+      "./template/config/drizzle.config.ts",
     );
     const drizzleConfigDestinationPath = path.join(
       projectDir,
-      "drizzle.config.ts"
+      "drizzle.config.ts",
     );
     fs.copyFileSync(drizzleConfigTemplatePath, drizzleConfigDestinationPath);
 
@@ -124,7 +132,7 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     // Copy auth.ts
     const authMiddlewareTemplatePath = path.resolve(
       __dirname,
-      `./template/TanstackState/middleware/auth.ts`
+      `./template/TanstackState/middleware/auth.ts`,
     );
     const authMiddlewareDestinationPath = path.join(middlewarePath, "auth.ts");
     fs.copyFileSync(authMiddlewareTemplatePath, authMiddlewareDestinationPath);
@@ -132,13 +140,13 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     // create file routes/api/auth/$.ts
     const fileRouteTemplatePath = path.resolve(
       __dirname,
-      `./template/TanstackState/routes/$.ts`
+      `./template/TanstackState/routes/$.ts`,
     );
     const fileRouteDestinationPath = path.join(
       srcPath,
       "routes",
       "api",
-      "auth"
+      "auth",
     );
 
     if (!fs.existsSync(fileRouteDestinationPath)) {
@@ -149,12 +157,15 @@ export const drizzleRunTanstackState = async (authUi: boolean) => {
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiTanstackState();
+      await authUiTanstackState({
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(
-          "\nDrizzle setup completed successfully and better-auth installed\n"
-        )
+          "\nDrizzle setup completed successfully and better-auth installed\n",
+        ),
       );
     }
   } catch (err) {

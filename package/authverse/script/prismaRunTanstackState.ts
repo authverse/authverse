@@ -6,13 +6,17 @@ import { packageManager, runCommand } from "../utils/packageManager.js";
 import { GenerateSecret } from "../utils/GenerateSecret.js";
 import { authUiTanstackState } from "./authUiTanstackState.js";
 
+interface prismaRunTanstackStateProps {
+  authUi: boolean;
+  database: "Postgresql" | "Mongodb" | "Mysql";
+  cmd: boolean;
+}
+
 export const prismaRunTanstackState = async ({
   authUi,
   database,
-}: {
-  authUi: boolean;
-  database: "Postgresql" | "Mongodb" | "Mysql";
-}) => {
+  cmd,
+}: prismaRunTanstackStateProps) => {
   try {
     // Get project directory
     const projectDir = process.cwd();
@@ -27,7 +31,7 @@ export const prismaRunTanstackState = async ({
 
     // Check install prisma and @prisma/client
     if (
-      !packageJson.devDependencies?.prisma &&
+      !packageJson.devDependencies?.prisma ||
       !packageJson.dependencies?.["@prisma/client"]
     ) {
       console.log(chalk.cyan("\n⚙️  Initializing Prisma...\n"));
@@ -60,7 +64,7 @@ export const prismaRunTanstackState = async ({
       //  Paths
       const templatePath = path.resolve(
         __dirname,
-        `./template/prisma/${database}/schema.prisma`
+        `./template/prisma/${database}/schema.prisma`,
       );
 
       //  Ensure prisma folder exists
@@ -76,7 +80,7 @@ export const prismaRunTanstackState = async ({
       if (database === "Mongodb") {
         const prismaConfigPath = path.resolve(
           __dirname,
-          `./template/config/prisma.config.ts`
+          `./template/config/prisma.config.ts`,
         );
         const prismaConfigDestinationPath = path.join("", "prisma.config.ts");
 
@@ -91,15 +95,15 @@ export const prismaRunTanstackState = async ({
 
       // check if schema.prisma user, session, account, verification
       if (
-        !schemaContent.includes("User") &&
-        !schemaContent.includes("Session") &&
-        !schemaContent.includes("Account") &&
+        !schemaContent.includes("User") ||
+        !schemaContent.includes("Session") ||
+        !schemaContent.includes("Account") ||
         !schemaContent.includes("Verification")
       ) {
         // Template path
         const templatePath = path.resolve(
           __dirname,
-          `./template/prisma/${database}/schema.prisma_copy`
+          `./template/prisma/${database}/schema.prisma_copy`,
         );
 
         // Copy schema.prisma
@@ -143,7 +147,7 @@ export const prismaRunTanstackState = async ({
     // Copy auth.ts
     const authTemplatePath = path.resolve(
       __dirname,
-      `./template/TanstackState/lib/${database}/auth.ts`
+      `./template/TanstackState/lib/${database}/auth.ts`,
     );
     const authDestinationPath = path.join(libPath, "auth.ts");
     fs.copyFileSync(authTemplatePath, authDestinationPath);
@@ -151,7 +155,7 @@ export const prismaRunTanstackState = async ({
     // Copy auth-client.ts
     const authClientTemplatePath = path.resolve(
       __dirname,
-      "./template/lib/auth-client.ts"
+      "./template/lib/auth-client.ts",
     );
     const authClientDestinationPath = path.join(libPath, "auth-client.ts");
     fs.copyFileSync(authClientTemplatePath, authClientDestinationPath);
@@ -167,7 +171,7 @@ export const prismaRunTanstackState = async ({
     // Copy auth.ts
     const authMiddlewareTemplatePath = path.resolve(
       __dirname,
-      `./template/TanstackState/middleware/auth.ts`
+      `./template/TanstackState/middleware/auth.ts`,
     );
     const authMiddlewareDestinationPath = path.join(middlewarePath, "auth.ts");
     fs.copyFileSync(authMiddlewareTemplatePath, authMiddlewareDestinationPath);
@@ -175,13 +179,13 @@ export const prismaRunTanstackState = async ({
     // create file routes/api/auth/$.ts
     const fileRouteTemplatePath = path.resolve(
       __dirname,
-      `./template/TanstackState/routes/$.ts`
+      `./template/TanstackState/routes/$.ts`,
     );
     const fileRouteDestinationPath = path.join(
       srcPath,
       "routes",
       "api",
-      "auth"
+      "auth",
     );
 
     if (!fs.existsSync(fileRouteDestinationPath)) {
@@ -192,12 +196,15 @@ export const prismaRunTanstackState = async ({
     fs.copyFileSync(fileRouteTemplatePath, apiDestinationPath);
 
     if (authUi) {
-      await authUiTanstackState();
+      await authUiTanstackState({
+        packageJson: packageJson,
+        cmd: cmd,
+      });
     } else {
       console.log(
         chalk.green(
-          "\nPrisma setup completed successfully and better-auth installed\n"
-        )
+          "\nPrisma setup completed successfully and better-auth installed\n",
+        ),
       );
     }
   } catch (err) {

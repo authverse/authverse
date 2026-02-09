@@ -3,21 +3,76 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { packageManager, runCommand } from "../utils/packageManager.js";
+import { crc32 } from "zlib";
 
-export const authUiRun = async ({ folder }: { folder: string }) => {
+const shadcnComponents = [
+  "button.tsx",
+  "card.tsx",
+  "field.tsx",
+  "input.tsx",
+  "label.tsx",
+  "separator.tsx",
+  "sonner.tsx",
+];
+
+export const authUiRun = async ({
+  folder,
+  packageJson,
+  cmd,
+}: {
+  folder: string;
+  packageJson: any;
+  cmd: boolean;
+}) => {
   try {
-    // install shadcn ui
-    console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+    const projectDir = process.cwd();
 
-    runCommand("shadcn@latest add button sonner card field input");
-    packageManager("react-hook-form @hookform/resolvers");
+    // check if shadcn ui is already installed
+    const shadcnPath = path.join(projectDir, folder, "components", "ui");
+
+    // shadcn config file
+    const shadcnConfigPath = path.join(projectDir, "components.json");
+
+    if (!fs.existsSync(shadcnPath) || !fs.existsSync(shadcnConfigPath)) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+
+      if (cmd == true) {
+        runCommand("shadcn@latest init --base-color zinc --yes");
+        runCommand("shadcn@latest add button sonner card field input");
+      } else {
+        runCommand("shadcn@latest add button sonner card field input");
+      }
+    }
+    // list all files in shadcnPath
+    const shadcnFiles = fs.readdirSync(shadcnPath);
+
+    // Find missing components
+    const missingComponents = shadcnComponents.filter(
+      (component) => !shadcnFiles.includes(component),
+    );
+
+    if (missingComponents.length > 0) {
+      console.log(chalk.yellow("\n Installing shadcn ui Components\n"));
+
+      const install = missingComponents
+        .map((components) => components.split(".")[0])
+        .join(" ");
+      runCommand(`shadcn@latest add ${install}`);
+    }
+
+    if (
+      !packageJson.dependencies?.["react-hook-form"] ||
+      !packageJson.dependencies?.["@hookform/resolvers"]
+    ) {
+      packageManager("react-hook-form @hookform/resolvers");
+    }
 
     //  Fix for __dirname in ES module
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
     // Copy Auth UI files components
-    const projectDir = process.cwd();
+
     const componentPath = path.resolve(__dirname, "./template/components");
 
     // Create authverse
@@ -25,7 +80,7 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
       projectDir,
       folder,
       "components",
-      "authverse"
+      "authverse",
     );
 
     // Ensure the directory exists before copying the file
@@ -36,26 +91,26 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
     // Copy component files = LoginComponent.tsx SingUpComponent.tsx and Logout.tsx
     const LoginDestinationPath = path.join(
       destinationPath,
-      "LoginComponent.tsx"
+      "LoginComponent.tsx",
     );
     fs.copyFileSync(
       `${componentPath}/LoginComponent.tsx`,
-      LoginDestinationPath
+      LoginDestinationPath,
     );
 
     const SignUpDestinationPath = path.join(
       destinationPath,
-      "SingUpComponent.tsx"
+      "SingUpComponent.tsx",
     );
     fs.copyFileSync(
       `${componentPath}/SingUpComponent.tsx`,
-      SignUpDestinationPath
+      SignUpDestinationPath,
     );
 
     // app add auth logic route
     const authTemplatePath = path.resolve(
       __dirname,
-      "./template/app-auth-uiDesign"
+      "./template/app-auth-uiDesign",
     );
 
     // Create app directory
@@ -81,7 +136,7 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
     const loginPageDestinationPath = path.join(loginDestinationDir, "page.tsx");
     fs.copyFileSync(
       `${authTemplatePath}/login/page.tsx`,
-      loginPageDestinationPath
+      loginPageDestinationPath,
     );
 
     // Create signup directory
@@ -94,12 +149,12 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
     // Copy page.tsx to signup directory
     const signUpPageDestinationPath = path.join(
       signUpDestinationDir,
-      "page.tsx"
+      "page.tsx",
     );
 
     fs.copyFileSync(
       `${authTemplatePath}/signup/page.tsx`,
-      signUpPageDestinationPath
+      signUpPageDestinationPath,
     );
 
     // Add layout root layout.tsx
@@ -114,7 +169,7 @@ export const authUiRun = async ({ folder }: { folder: string }) => {
       if (!layoutContent.includes("<Toaster")) {
         layoutContent = layoutContent.replace(
           /<\/body>/,
-          "    <Toaster />\n  </body>"
+          "    <Toaster />\n  </body>",
         );
       }
 

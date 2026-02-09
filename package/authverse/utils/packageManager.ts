@@ -9,7 +9,7 @@ export const getPackageManager = (): PM => {
   if (ua.includes("pnpm")) return "pnpm";
   if (ua.includes("yarn")) return "yarn";
 
-  return "npm";
+  return "pnpm";
 };
 
 const pm = getPackageManager();
