@@ -59,7 +59,6 @@ export const authUiRun = async ({
         .join(" ");
       runCommand(`shadcn@latest add ${install}`);
     }
-    console.log(packageJson.dependencies);
     if (
       !packageJson.dependencies?.["react-hook-form"] ||
       !packageJson.dependencies?.["@hookform/resolvers"] ||
