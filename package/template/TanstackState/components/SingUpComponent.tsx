@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { authClient } from "@/lib/auth-client";
+import { useNavigate } from "@tanstack/react-router";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -33,6 +34,7 @@ const formSchema = z.object({
 
 const SingUpComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -55,12 +57,13 @@ const SingUpComponent = () => {
         {
           onSuccess: () => {
             toast.success("Sign up successful!");
+            navigate({ to: "/" });
           },
           onError: (error: any) => {
             setIsLoading(false);
             toast.error(error.error.message);
           },
-        }
+        },
       );
     },
   });
