@@ -19,7 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { redirect, useSearch } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 const formSchema = z
   .object({
@@ -36,6 +37,7 @@ const formSchema = z
 const ResetComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { token } = useSearch({ from: "/auth/reset-password" });
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -55,15 +57,15 @@ const ResetComponent = () => {
         {
           onSuccess: () => {
             toast.success(
-              "Password has been reset successfully. You can now log in with your new password."
+              "Password has been reset successfully. You can now log in with your new password.",
             );
-            redirect({ to: "/" });
+            navigate({ to: "/" });
           },
           onError: (error: any) => {
             setIsLoading(false);
             toast.error(error.error.message);
           },
-        }
+        },
       );
     },
   });
