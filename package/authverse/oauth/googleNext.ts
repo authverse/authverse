@@ -106,10 +106,10 @@ ${googleProviderEntry}
       }
     }
 
-    // Copy GoogleProviders.tsx
+    // Copy GoogleOAuthButton.tsx
     const componentTemplate = path.resolve(
       __dirname,
-      "./template/components/GoogleProviders.tsx",
+      "./template/components/GoogleOAuthButton.tsx",
     );
 
     const componentsDir = path.join(
@@ -123,7 +123,7 @@ ${googleProviderEntry}
       fs.mkdirSync(componentsDir, { recursive: true });
     }
 
-    const componentDest = path.join(componentsDir, "GoogleProviders.tsx");
+    const componentDest = path.join(componentsDir, "GoogleOAuthButton.tsx");
 
     if (fs.existsSync(componentTemplate)) {
       fs.copyFileSync(componentTemplate, componentDest);

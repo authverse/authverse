@@ -105,10 +105,10 @@ ${githubProviderEntry}
       }
     }
 
-    // Copy GoogleProviders.tsx
+    // Copy GithubOAuthButton.tsx
     const componentTemplate = path.resolve(
       __dirname,
-      "./template/TanstackState/components/GithubProviders.tsx",
+      "./template/TanstackState/components/GithubOAuthButton.tsx",
     );
 
     const componentsDir = path.join(srcPath, "components", "authverse");
@@ -117,7 +117,7 @@ ${githubProviderEntry}
       fs.mkdirSync(componentsDir, { recursive: true });
     }
 
-    const componentDest = path.join(componentsDir, "GithubProviders.tsx");
+    const componentDest = path.join(componentsDir, "GithubOAuthButton.tsx");
 
     if (fs.existsSync(componentTemplate)) {
       fs.copyFileSync(componentTemplate, componentDest);

@@ -106,10 +106,10 @@ ${githubProviderEntry}
       }
     }
 
-    // Copy GithubProviders.ts
+    // Copy GithubOAuthButton.tsx
     const componentTemplate = path.resolve(
       __dirname,
-      "./template/components/GithubProviders.tsx",
+      "./template/components/GithubOAuthButton.tsx",
     );
 
     const componentsDir = path.join(
@@ -123,7 +123,7 @@ ${githubProviderEntry}
       fs.mkdirSync(componentsDir, { recursive: true });
     }
 
-    const componentDest = path.join(componentsDir, "GithubProviders.tsx");
+    const componentDest = path.join(componentsDir, "GithubOAuthButton.tsx");
 
     if (fs.existsSync(componentTemplate)) {
       fs.copyFileSync(componentTemplate, componentDest);

@@ -105,10 +105,10 @@ ${googleProviderEntry}
       }
     }
 
-    // Copy GoogleProviders.tsx
+    // Copy `GoogleOAuthButt`on.tsx
     const componentTemplate = path.resolve(
       __dirname,
-      "./template/TanstackState/components/GoogleProviders.tsx",
+      "./template/TanstackState/components/GoogleOAuthButton.tsx",
     );
 
     const componentsDir = path.join(srcPath, "components", "authverse");
@@ -117,7 +117,7 @@ ${googleProviderEntry}
       fs.mkdirSync(componentsDir, { recursive: true });
     }
 
-    const componentDest = path.join(componentsDir, "GoogleProviders.tsx");
+    const componentDest = path.join(componentsDir, "GoogleOAuthButton.tsx");
 
     if (fs.existsSync(componentTemplate)) {
       fs.copyFileSync(componentTemplate, componentDest);

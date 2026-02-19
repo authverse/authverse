@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Button } from "../ui/button";
 
-const GoogleProviders = () => {
+const GoogleOAuthButton = () => {
   const signIn = async () => {
     await authClient.signIn.social({
       provider: "google",
@@ -45,4 +45,4 @@ const GoogleProviders = () => {
   );
 };
 
-export default GoogleProviders;
+export default GoogleOAuthButton;
