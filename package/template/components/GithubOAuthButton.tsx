@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Button } from "../ui/button";
 
-const GithubProviders = () => {
+const GithubOAuthButton = () => {
   const signIn = async () => {
     await authClient.signIn.social({
       provider: "github",
@@ -33,4 +33,4 @@ const GithubProviders = () => {
   );
 };
 
-export default GithubProviders;
+export default GithubOAuthButton;
