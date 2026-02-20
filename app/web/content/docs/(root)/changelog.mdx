@@ -3,6 +3,37 @@ title: Changelog
 description: Latest updates and announcements.
 ---
 
+# February 2026 — Expanded OAuth Ecosystem
+
+Authverse v1.2.0 expands the **OAuth ecosystem** by adding support for major social providers, streamlining the setup process for Apple, Facebook, LinkedIn, and Twitter.
+
+---
+
+## New Features & Enhancements
+
+### New OAuth Providers
+
+- **Apple OAuth:** Full support for Apple Sign-In, including automatic `trustedOrigins` configuration.
+- **Facebook OAuth:** Easy integration with Facebook Developer portal settings.
+- **LinkedIn OAuth:** Support for LinkedIn's latest OAuth flows.
+- **Twitter OAuth:** V2 API compatible Twitter integration.
+
+### CLI Improvements
+
+- **Dedicated commands:** Added `npx authverse add [provider]` for all new social logins.
+- **Auto-generated UI:** Commands now automatically generate provider-specific buttons (e.g., `AppleOAuthButton`, `FacebookOAuthButton`).
+- **Environment Automation:** CLI automatically appends required `.env` variables for each new provider.
+
+## Documentation Updates
+
+- **New:** [Apple OAuth](/docs/oauth/Apple) documentation.
+- **New:** [Facebook OAuth](/docs/oauth/Facebook) documentation.
+- **New:** [LinkedIn OAuth](/docs/oauth/LinkedIn) documentation.
+- **New:** [Twitter OAuth](/docs/oauth/Twitter) documentation.
+- **Refactored:** Simplified OAuth navigation and renamed guides for better discoverability.
+
+---
+
 # January 2026 — Enhanced Email & Verification
 
 Authverse v1.1.2 significantly improves the **email integration** experience, adding support for multiple providers and a new dedicated email verification flow.
