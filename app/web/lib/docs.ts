@@ -1,5 +1,6 @@
 export const PAGES_NEW = [
-  "/docs/integrations/tanstackstart",
-  "/docs/integrations/Email",
-  "/docs/auth/email-verification",
+  "/docs/oauth/Facebook",
+  "/docs/oauth/Twitter",
+  "/docs/oauth/Apple",
+  "/docs/oauth/LinkedIn",
 ];
