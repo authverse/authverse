@@ -10,7 +10,7 @@ This page details how to add and configure GitHub OAuth for Authverse projects.
 Execute the following command to add the GitHub provider to your project:
 
 ```package-install
-npx authverse@latest add github
+npx authverse@latest oauth github
 ```
 
 ## Configure Authorized Redirect URIs
@@ -44,9 +44,9 @@ Replace the values with the **Client ID** and **Client Secret** from your GitHub
 Import the prebuilt provider component and integrate it into your UI:
 
 ```jsx
-import GithubProviders from "@/components/authverse/GithubProviders";
+import GithubOAuthButton from "@/components/authverse/GithubOAuthButton";
 
-<GithubProviders />;
+<GithubOAuthButton />;
 ```
 
 This component renders the GitHub sign-in option at its location.

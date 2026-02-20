@@ -10,7 +10,7 @@ This page details how to add and configure Google OAuth for Authverse projects.
 Execute the following command to add the Google provider to your project:
 
 ```package-install
-npx authverse@latest add google
+npx authverse@latest oauth google
 ```
 
 ## Configure Authorized Redirect URIs
@@ -44,9 +44,9 @@ Replace the values with the **Client ID** and **Client Secret** obtained from th
 Import the prebuilt provider component and integrate it into your UI:
 
 ```tsx
-import GoogleProviders from "@/components/authverse/GoogleProviders";
+import GoogleOAuthButton from "@/components/authverse/GoogleOAuthButton";
 
-<GoogleProviders />;
+<GoogleOAuthButton />;
 ```
 
 This component renders the Google sign-in option at its location.

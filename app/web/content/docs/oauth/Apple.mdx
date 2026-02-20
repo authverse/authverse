@@ -1,0 +1,61 @@
+---
+title: Apple OAuth
+description: Apple OAuth setup for Authverse projects
+---
+
+This page details how to add and configure Apple OAuth for Authverse projects.
+
+## Install the Apple Provider
+
+Execute the following command to add the Apple provider to your project:
+
+```package-install
+npx authverse@latest oauth apple
+```
+
+## Configure Apple Developer Portal
+
+To support Apple Sign-In, you need to configure your app in the [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list):
+
+1.  **App ID**: Create an App ID for your application (if not already existing).
+2.  **Services ID**: Create a Services ID for your web application.
+    - Set the **Identifier** as your Client ID.
+    - Configure the **Return URLs**:
+      - **Local development**: `http://localhost:3000/api/auth/callback/apple`
+      - **Production**: `https://example.com/api/auth/callback/apple`
+3.  **Private Key**: Create a Sign-In with Apple Private Key (`.p8` file). Note the **Key ID** and your **Team ID**.
+
+## Environment Setup
+
+Add the following variables to your project's `.env` file:
+
+```bash
+APPLE_CLIENT_ID=
+APPLE_CLIENT_SECRET=
+APPLE_BUNDLE_ID=
+```
+
+- **APPLE_CLIENT_ID**: Your Services ID Identifier.
+- **APPLE_CLIENT_SECRET**: Your generated client secret (or the contents of your `.p8` key if your adapter supports it).
+- **APPLE_BUNDLE_ID**: Important for native iOS; use the app's bundle ID here, not the service ID.
+
+> [!NOTE]
+> The Authverse CLI automatically adds `https://appleid.apple.com` to your `trustedOrigins` in `auth.ts` to ensure seamless authentication flow.
+
+## Import and Use the Apple Provider Component
+
+Import the prebuilt provider component and integrate it into your UI:
+
+```tsx
+import { AppleOAuthButton } from "@/components/authverse/AppleOAuthButton";
+
+<AppleOAuthButton />;
+```
+
+This component renders the Apple sign-in button at its location.
+
+## Notes & Troubleshooting
+
+- **Authorized Redirect URIs**: Ensure the `Return URLs` in the Apple Developer Portal exactly match your deployment.
+- **Trusted Origins**: Apple requires `https://appleid.apple.com` to be in your trusted origins list.
+- **Bundle ID**: For cross-platform applications, ensure `APPLE_BUNDLE_ID` is set to your native app's bundle identifier.
