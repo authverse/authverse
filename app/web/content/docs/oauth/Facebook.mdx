@@ -1,0 +1,60 @@
+---
+title: Facebook OAuth
+description: Facebook OAuth setup for Authverse projects
+---
+
+This page details how to add and configure Facebook OAuth for Authverse projects.
+
+## Install the Facebook Provider
+
+Execute the following command to add the Facebook provider to your project:
+
+```package-install
+npx authverse@latest oauth facebook
+```
+
+## Configure Facebook Developer Portal
+
+To use Facebook sign in, you need a client ID and client Secret. You can get them from the Facebook Developer Portal. Select your app, navigate to App Settings > Basic, locate the following:
+
+- **App ID**
+- **App Secret**
+
+Navigate to the **Facebook Developers Console** (My Apps → [Your App] → Use cases → Authentication) and configure the **Redirect URIs**:
+
+- **Local development**:
+  - `http://localhost:3000/api/auth/callback/facebook`
+- **Production**:
+  - `https://example.com/api/auth/callback/facebook`
+
+## Environment Setup
+
+Add the following variables to your project's `.env` file:
+
+```bash
+FACEBOOK_CLIENT_ID=
+FACEBOOK_CLIENT_SECRET=
+```
+
+Replace the values with the **App ID** and **App Secret** from your Facebook App settings.
+
+> [!TIP]
+> Adjust this configuration to use your preferred method for securely storing secrets in CI/CD pipelines.
+
+## Import and Use the Facebook Provider Component
+
+Import the prebuilt provider component and integrate it into your UI:
+
+```tsx
+import FacebookOAuthButton from "@/components/authverse/FacebookOAuthButton";
+
+<FacebookOAuthButton />;
+```
+
+This component renders the Facebook sign-in option at its location.
+
+## Notes & Troubleshooting
+
+- **App Mode**: Ensure your Facebook App is in **Live** mode to allow external users to sign in.
+- **Permissions**: Ensure you have requested the necessary permissions (e.g., `email`, `public_profile`).
+- **Production Domain**: For production environments, replace `https://example.com` with your authenticated domain.

@@ -1,0 +1,55 @@
+---
+title: Twitter OAuth
+description: Twitter OAuth setup for Authverse projects
+---
+
+This page details how to add and configure Twitter OAuth for Authverse projects.
+
+## Install the Twitter Provider
+
+Execute the following command to add the Twitter provider to your project:
+
+```package-install
+npx authverse@latest oauth twitter
+```
+
+## Configure Twitter Developer Portal
+
+Navigate to the **Twitter Developer Portal** (Projects & Apps → [Your App] → User authentication settings) and configure the **App info**:
+
+- **App Type**: Web App, Automated App or Bot
+- **Callback URI / Redirect URL**:
+  - `http://localhost:3000/api/auth/callback/twitter`
+  - `https://example.com/api/auth/callback/twitter`
+
+## Environment Setup
+
+Add the following variables to your project's `.env` file:
+
+```bash
+TWITTER_CLIENT_ID=
+TWITTER_CLIENT_SECRET=
+```
+
+Replace the values with the **API Key** and **API Key Secret** (or OAuth 2.0 Client ID/Secret) from your Twitter App.
+
+> [!TIP]
+> Adjust this configuration to use your preferred method for securely storing secrets in CI/CD pipelines.
+
+## Import and Use the Twitter Provider Component
+
+Import the prebuilt provider component and integrate it into your UI:
+
+```tsx
+import twitterOAuthButton from "@/components/authverse/twitterOAuthButton";
+
+<twitterOAuthButton />;
+```
+
+This component renders the Twitter sign-in option at its location.
+
+## Notes & Troubleshooting
+
+- **OAuth 2.0**: Authverse uses OAuth 2.0. Ensure it is enabled in your Twitter App settings.
+- **Production Domain**: For production environments, replace `https://example.com` with your authenticated domain.
+- **V2 API**: Ensure your app has access to the Twitter API v2.

@@ -1,0 +1,4 @@
+{
+  "title": "OAuth Providers",
+  "pages": ["Apple", "Google", "Github", "Facebook", "LinkedIn", "Twitter"]
+}

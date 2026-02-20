@@ -1,10 +1,4 @@
 {
-  "title": "Auth",
-  "pages": [
-    "credentials",
-    "forgetPassword",
-    "email-verification",
-    "GoogleOAuth",
-    "GithubOAuth"
-  ]
+  "title": "Authentication",
+  "pages": ["credentials", "forgetPassword", "email-verification"]
 }

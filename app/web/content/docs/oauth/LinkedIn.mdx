@@ -1,0 +1,55 @@
+---
+title: LinkedIn OAuth
+description: LinkedIn OAuth setup for Authverse projects
+---
+
+This page details how to add and configure LinkedIn OAuth for Authverse projects.
+
+## Install the LinkedIn Provider
+
+Execute the following command to add the LinkedIn provider to your project:
+
+```package-install
+npx authverse@latest oauth LinkedIn
+```
+
+## Configure LinkedIn Developer Portal
+
+Navigate to the **LinkedIn Developers portal** (My Apps → [Your App] → Auth) and configure the **Authorized Redirect URLs**:
+
+- **Local development**:
+  - `http://localhost:3000/api/auth/callback/LinkedIn`
+- **Production**:
+  - `https://example.com/api/auth/callback/LinkedIn`
+
+## Environment Setup
+
+Add the following variables to your project's `.env` file:
+
+```bash
+LINKEDIN_CLIENT_ID=
+LINKEDIN_CLIENT_SECRET=
+```
+
+Replace the values with the **Client ID** and **Client Secret** from your LinkedIn App.
+
+> [!TIP]
+> Adjust this configuration to use your preferred method for securely storing secrets in CI/CD pipelines.
+
+## Import and Use the LinkedIn Provider Component
+
+Import the prebuilt provider component and integrate it into your UI:
+
+```tsx
+import LinkedInOAuthButton from "@/components/authverse/LinkedInOAuthButton";
+
+<LinkedInOAuthButton />;
+```
+
+This component renders the LinkedIn sign-in option at its location.
+
+## Notes & Troubleshooting
+
+- **Products**: Ensure you have added the **Sign In with LinkedIn** product to your app.
+- **Production Domain**: For production environments, replace `https://example.com` with your authenticated domain.
+- **Case Sensitivity**: Ensure the redirect URI case matches exactly (e.g., `LinkedIn` vs `linkedin`).
