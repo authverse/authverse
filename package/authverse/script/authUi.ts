@@ -183,7 +183,7 @@ export const authUiRun = async ({
     console.log(chalk.cyan("\nFiles created:"));
     console.log(
       chalk.white(
-        `• lib/auth.ts \n• lib/auth-client.ts \n• app/api/auth/[...all]/route.ts \n• proxy.ts\n• components/authverse/LoginComponent.tsx\n• components/authverse/SingUpComponent.tsx\n• app/auth/layout.tsx\n• app/auth/login/page.tsx\n• app/auth/signup/page.tsx\n`,
+        `• ${folder === "" ? "" : folder + "/"}lib/auth.ts \n• ${folder !== "" ? folder + "/" : ""}lib/auth-client.ts \n• ${folder !== "" ? folder + "/" : ""}app/api/auth/[...all]/route.ts \n• ${folder !== "" ? folder + "/" : ""}proxy.ts\n• ${folder !== "" ? folder + "/" : ""}components/authverse/LoginComponent.tsx\n• ${folder !== "" ? folder + "/" : ""}components/authverse/SingUpComponent.tsx\n• ${folder !== "" ? folder + "/" : ""}app/auth/layout.tsx\n• ${folder !== "" ? folder + "/" : ""}app/auth/login/page.tsx\n• ${folder !== "" ? folder + "/" : ""}app/auth/signup/page.tsx\n`,
       ),
     );
   } catch (error) {

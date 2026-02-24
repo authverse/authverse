@@ -286,7 +286,7 @@ export const prismaRun = async ({ authUi, database, cmd }: prismaRunProps) => {
       console.log(chalk.cyan("\nFiles created:"));
       console.log(
         chalk.white(
-          `• lib/auth.ts \n• lib/auth-client.ts \n• app/api/auth/[...all]/route.ts \n• proxy.ts\n`,
+          `• ${srcFolder === "" ? "" : srcFolder + "/"}lib/auth.ts \n• ${srcFolder === "" ? "" : srcFolder + "/"}lib/auth-client.ts \n• ${srcFolder === "" ? "" : srcFolder + "/"}app/api/auth/[...all]/route.ts \n• ${srcFolder === "" ? "" : srcFolder + "/"}proxy.ts\n`,
         ),
       );
     }
