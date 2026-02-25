@@ -4,6 +4,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { packageManager, runCommand } from "../utils/packageManager.js";
 import { crc32 } from "zlib";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 const shadcnComponents = [
   "button.tsx",
@@ -19,10 +20,12 @@ export const authUiRun = async ({
   folder,
   packageJson,
   cmd,
+  database,
 }: {
   folder: string;
   packageJson: any;
   cmd: boolean;
+  database: "prisma" | "drizzle";
 }) => {
   try {
     const projectDir = process.cwd();
@@ -175,8 +178,15 @@ export const authUiRun = async ({
 
       fs.writeFileSync(layoutPath, layoutContent, "utf-8");
     }
-
-    console.log(chalk.green("\nSetup completed!\n"));
+    console.log(chalk.green("\nCompleted installation successfully"));
+    console.log(chalk.cyan("\nInstall Package:"));
+    console.log(chalk.white(`• ${database} schema\n• better-auth`));
+    console.log(chalk.cyan("\nFiles created:"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: folder, destFolder: "lib/auth.ts" })}\n${CreateFolder({ srcFolder: folder, destFolder: "lib/auth-client.ts" })}\n${CreateFolder({ srcFolder: folder, destFolder: "app/api/auth/[...all]/route.ts" })}\n${CreateFolder({ srcFolder: folder, destFolder: "proxy.ts" })}\n${CreateFolder({ srcFolder: folder, destFolder: "components/authverse/LoginComponent.tsx" })}\n${CreateFolder({ srcFolder: folder, destFolder: "components/authverse/SingUpComponent.tsx" })}\n${CreateFolder({ srcFolder: folder, destFolder: "app/auth/layout.tsx" })}\n${CreateFolder({ srcFolder: folder, destFolder: "app/auth/login/page.tsx" })}\n${CreateFolder({ srcFolder: folder, destFolder: "app/auth/signup/page.tsx" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red("\nauthUi setup failed:"), error);
   }

@@ -60,6 +60,12 @@ export const gmailRunTanstackStart = async () => {
     }
     const libDestinationPath = path.join(libPath, "email.ts");
     fs.copyFileSync(templatePath, libDestinationPath);
+
+    console.log(chalk.green("\nCompleted installation successfully"));
+    console.log(chalk.cyan("\nInstall Package:"));
+    console.log(chalk.white(`• nodemailer\n• @react-email/components`));
+    console.log(chalk.cyan("\nFiles created:"));
+    console.log(chalk.white("• src/lib/email.ts\n"));
   } catch (error) {
     console.log(chalk.red(error));
   }

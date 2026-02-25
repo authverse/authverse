@@ -123,7 +123,10 @@ ${facebookProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("Facebook provider added & merged successfully"));
+    console.log(chalk.green("Facebook provider added & merged successfully\n"));
+    console.log(
+      chalk.white("• src/components/authverse/FacebookOAuthButton.tsx"),
+    );
   } catch (error) {
     console.log(chalk.red("facebookRunTanstackState error:"), error);
   }

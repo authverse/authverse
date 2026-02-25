@@ -123,7 +123,10 @@ ${googleProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("Google provider added & merged successfully"));
+    console.log(chalk.green("Google provider added & merged successfully\n"));
+    console.log(
+      chalk.white("• src/components/authverse/GoogleOAuthButton.tsx"),
+    );
   } catch (error) {
     console.log(chalk.red("googleRunTanstackState error:"), error);
   }

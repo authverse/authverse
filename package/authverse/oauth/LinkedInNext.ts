@@ -2,6 +2,7 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 export const LinkedInNext = async () => {
   try {
@@ -129,7 +130,12 @@ ${LinkedInProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("LinkedIn provider added & merged successfully"));
+    console.log(chalk.green("LinkedIn provider added & merged successfully\n"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: folder, destFolder: "components/authverse/LinkedInOAuthButton.tsx" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red("LinkedIn error:"), error);
   }

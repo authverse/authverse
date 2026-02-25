@@ -2,6 +2,7 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 export const facebookNext = async () => {
   try {
@@ -129,7 +130,12 @@ ${facebookProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("Facebook provider added & merged successfully"));
+    console.log(chalk.green("Facebook provider added & merged successfully\n"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: folder, destFolder: "components/authverse/FacebookOAuthButton.tsx" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red("facebookRun error:"), error);
   }

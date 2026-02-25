@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { packageManager } from "../utils/packageManager.js";
 import { fileURLToPath } from "url";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 export const resendRun = async () => {
   try {
@@ -41,7 +42,7 @@ export const resendRun = async () => {
     // template/email/resend.tsx
     const templatePath = path.resolve(
       __dirname,
-      "./template/email/emailResend.ts"
+      "./template/email/emailResend.ts",
     );
 
     // create lib/email.ts
@@ -51,6 +52,16 @@ export const resendRun = async () => {
     }
     const libDestinationPath = path.join(libPath, "email.ts");
     fs.copyFileSync(templatePath, libDestinationPath);
+
+    console.log(chalk.green("\nCompleted installation successfully"));
+    console.log(chalk.cyan("\nInstall Package:"));
+    console.log(chalk.white(`• resend\n• @react-email/components`));
+    console.log(chalk.cyan("\nFiles created:"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: srcFolder, destFolder: "lib/email.ts" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red(error));
   }

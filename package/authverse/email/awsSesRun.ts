@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import { packageManager } from "../utils/packageManager.js";
 import { fileURLToPath } from "url";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 export const awsSesRun = async () => {
   try {
@@ -51,7 +52,7 @@ export const awsSesRun = async () => {
     // template/email/emailAwsSes.ts
     const templatePath = path.resolve(
       __dirname,
-      "./template/email/emailAwsSes.ts"
+      "./template/email/emailAwsSes.ts",
     );
 
     // create lib/email.ts
@@ -61,6 +62,16 @@ export const awsSesRun = async () => {
     }
     const libDestinationPath = path.join(libPath, "email.ts");
     fs.copyFileSync(templatePath, libDestinationPath);
+
+    console.log(chalk.green("\nCompleted installation successfully"));
+    console.log(chalk.cyan("\nInstall Package:"));
+    console.log(chalk.white(`• nodemailer\n• @react-email/components`));
+    console.log(chalk.cyan("\nFiles created:"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: srcFolder, destFolder: "lib/email.ts" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red(error));
   }
