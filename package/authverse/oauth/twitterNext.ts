@@ -2,6 +2,7 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CreateFolder } from "../utils/CreateFolder.js";
 
 export const twitterNext = async () => {
   try {
@@ -129,7 +130,12 @@ ${twitterProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("twitter provider added & merged successfully"));
+    console.log(chalk.green("Twitter provider added & merged successfully\n"));
+    console.log(
+      chalk.white(
+        `${CreateFolder({ srcFolder: folder, destFolder: "components/authverse/TwitterOAuthButton.tsx" })}\n`,
+      ),
+    );
   } catch (error) {
     console.log(chalk.red("twitter error:"), error);
   }

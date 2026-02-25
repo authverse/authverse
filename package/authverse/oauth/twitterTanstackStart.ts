@@ -123,7 +123,10 @@ ${twitterProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("twitter provider added & merged successfully"));
+    console.log(chalk.green("twitter provider added & merged successfully\n"));
+    console.log(
+      chalk.white("• src/components/authverse/twitterOAuthButton.tsx"),
+    );
   } catch (error) {
     console.log(chalk.red("twitter tanstack state error:"), error);
   }

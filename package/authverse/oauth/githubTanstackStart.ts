@@ -123,7 +123,10 @@ ${githubProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("Github provider added & merged successfully"));
+    console.log(chalk.green("Github provider added & merged successfully\n"));
+    console.log(
+      chalk.white("• src/components/authverse/GithubOAuthButton.tsx"),
+    );
   } catch (error) {
     console.log(chalk.red("githubRunTanstackState error:"), error);
   }

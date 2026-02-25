@@ -147,7 +147,8 @@ ${appleProviderEntry}
       fs.copyFileSync(componentTemplate, componentDest);
     }
 
-    console.log(chalk.green("Apple provider added & merged successfully"));
+    console.log(chalk.green("Apple provider added & merged successfully\n"));
+    console.log(chalk.white("• src/components/authverse/AppleOAuthButton.tsx"));
   } catch (error) {
     console.log(chalk.red("apple tanstack state error:"), error);
   }
