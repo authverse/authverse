@@ -24,6 +24,11 @@ export const resendRun = async () => {
       packageManager("@react-email/components");
     }
 
+    if (!packageJson.dependencies?.["@react-email/render"]) {
+      console.log(chalk.cyan("\n⚙️  Installing @react-email/render...\n"));
+      packageManager("@react-email/render");
+    }
+
     // add .env variables info
     const envPath = path.join(projectDir, ".env");
     const envContent = fs.readFileSync(envPath, "utf8");
@@ -55,7 +60,9 @@ export const resendRun = async () => {
 
     console.log(chalk.green("\nCompleted installation successfully"));
     console.log(chalk.cyan("\nInstall Package:"));
-    console.log(chalk.white(`• resend\n• @react-email/components`));
+    console.log(
+      chalk.white(`• resend\n• @react-email/components\n• @react-email/render`),
+    );
     console.log(chalk.cyan("\nFiles created:"));
     console.log(
       chalk.white(
