@@ -53,7 +53,9 @@ export const resendRunTanstackStart = async () => {
 
     console.log(chalk.green("\nCompleted installation successfully"));
     console.log(chalk.cyan("\nInstall Package:"));
-    console.log(chalk.white(`• resend\n• @react-email/components`));
+    console.log(
+      chalk.white(`• resend\n• @react-email/components\n• @react-email/render`),
+    );
     console.log(chalk.cyan("\nFiles created:"));
     console.log(chalk.white("• src/lib/email.ts\n"));
   } catch (error) {
