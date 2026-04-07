@@ -19,7 +19,7 @@ Next.js and Tanstack State project.
 It automatically integrates:
 
 - **Better Auth** modern auth framework
-- **ShadCN UI auth screens**
+- **ShadCN/UI auth screens**
 - **Prisma or Drizzle database setup**
 - **OAuth providers**
 - **API routes + folder structure**
@@ -49,7 +49,7 @@ With just **one single run command**, you get:
 - **Google OAuth**
 - **GitHub OAuth**
 - **Integrated Better Auth**
-- **ShadCN UI auth screens**
+- **Shadcn/ui auth screens**
 - **Prisma or Drizzle database support**
 - **Modern folder structure**
 - **TypeScript support**
@@ -73,7 +73,7 @@ Authverse will guide you step-by-step to choose:
 - And automatically generate everything for you
 
 After running the CLI, your project will be fully ready with  
-**Better Auth**, **ShadCN UI components**, and **database integration**.
+**Better Auth**, **Shadcn/ui components**, and **database integration**.
 
 ---
 
