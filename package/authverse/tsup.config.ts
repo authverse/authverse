@@ -6,4 +6,5 @@ export default defineConfig({
   dts: true,
   outDir: "dist",
   platform: "node",
+  tsconfig: "tsconfig.build.json",
 });
